@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="description" content="version 1.0.1">
+        <meta name="author" content="Michael Ruane, DVRPC">
+        <title>Open Freight App 1.0</title>
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" rel="stylesheet" type="text/css">
+        <link href="lib/assets/typeahead.min.css" rel="stylesheet" type="text/css">
+        <!--declare stylesheet for desire icon font set  -->
+        <link rel="stylesheet" href="lib/core/dyna.css">
+
+        <link rel="stylesheet" href="lib/core/core.css">
+        <link rel='stylesheet' href='lib/style.css' />
+
+        
+        <!--Remove after customization of application (necessary only for documentation files)-->
+        <link rel="stylesheet"  href='lib/assets/styles/github.css'>
+        
+
+
+        <style>
+       
+        #loading {
+                position: absolute;
+                width: 220px;
+                height: 19px;
+                top: 50%;
+                left: 50%;
+                margin: -10px 0 0 -110px;
+                z-index: 1028;
+            }
+        .omodal{
+            position: absolute;
+            width: 220px;
+            height: 19px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -110px;
+            z-index: 1028;
+            display: none;
+            overflow: hidden;
+            outline: 0px none;
+        }
+        #AddLayer a{
+            cursor:pointer;
+        }
+        .docMenu{
+            position: absolute;
+            top: -2px;
+            left: 250px;
+        }
+        .docMenu > li.dropdown > a{
+            background-color:#fff!important;
+        }
+        .bs-dyna {
+            margin: 0 -10px 20px;
+            overflow: hidden;}
+        .bs-dyna-list {
+            padding-left: 0;
+            list-style: none;
+        }
+        .bs-dyna li {
+            width: 25%;
+            font-size: 12px;
+            float: left;
+            min-height:100px;
+            padding: 30px;
+            line-height: 1.4;
+            text-align: center;
+            background-color: #f9f9f9;
+            border: 1px solid #fff;
+        }
+        .bs-dyna .dynico {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+       
+        .bs-dyna .dyna-class {
+            display: block;
+            text-align: center;
+            word-wrap: break-word;
+            }
+        div.browserIcon {
+float: left;
+background-repeat: no-repeat;
+margin-right: 10px;
+width: 42px;
+height: 42px;
+}
+div.internetExplorerIcon {
+background-image: url("docs/lrg_browser_ie.png");
+}
+div.chromeIcon {
+background-image: url("docs/lrg_browser_chrome.png");
+}
+div.firefoxIcon {
+background-image: url("docs/lrg_browser_firefox.png");
+}
+div.safariIcon {
+background-image: url("docs/lrg_browser_safari.png");
+}
+.mobile-browsers td, .desktop-browsers td {
+border: 1px solid #bdbdbd;
+padding: 10px;
+vertical-align: middle;
+}
+.mobile-browsers td.narrow, .desktop-browsers td.narrow{
+width: 20%;
+}
+div.browserLabel {
+margin-top: 14px;
+}
+.no-borders {
+border: none;
+}
+td.center {
+text-align: center;
+}
+.supported:before {
+font-family: "icon-font";
+content: "\f00c";
+color: green;
+margin-right: 7px;
+margin-left: -20px;
+}
+.not-supported:before {
+font-family: "icon-font";
+content: "\e605";
+color: #990000;
+margin-right: 7px;
+margin-left: -20px;
+}
+.desktop-browsers, .mobile-browsers {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 1em;
+margin-bottom: 2.86em;
+width: 100%;
+max-width:900px;}
+.align-right {
+display: inline-block;
+margin-right: 6px;
+text-align: right;
+float: right;
+}
+.mobile-browsers td {
+text-align: center;
+width: 33%;}
+.yes, .no{
+    margin-left: 20px;
+    display: inline-block;
+}
+.yes span{
+    color:#669900;
+}
+.no span{
+    color:#990000;
+}
+        @media screen and (min-width: 768px) {
+                .modal-dialog {
+                    width:730px!important;
+                }
+            }
+            @media (max-width: 1360px){
+                .search-container{
+                    width:250px!important;
+                }
+            }
+            @media (max-width: 1270px) {
+                .navbar .navbar-brand {
+                    font-size: 18px;
+                    float: left;
+                }
+                .leaflet-control-attribution {
+                    display: none;
+                }
+                
+            }
+            @media (max-width: 1200px) {
+               .search-container {
+                    width: 200px!important;
+                }
+            }
+            @media (max-width: 960px) {
+               .search-container {
+                    display :none!important;
+                }
+
+            }
+            @media (max-width: 768px){
+                .search-container {
+                    display: table!important;
+                    width: 100%!important;
+                }
+                .logo-container{
+                    padding:0px;
+                }
+                .navbar-nav .open .dropdown-menu{
+                    background-color:#fff;
+                }
+                #infobox_ {
+                    right:10px;
+                }
+            }
+            @media (max-width: 376px){
+                .infowrap{
+                    padding:20px;
+                    height:auto;
+                }
+                #infobox_ {
+                    display:none;
+                }
+            }
+            /* Print Handling */
+            @media print {
+                .navbar, .toggle, #sidebar {
+                    display: none !important;
+                }
+            }
+        </style> 
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top oheader">
+        <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <div class="navbar-brand">
+                <div class="logo-container"><img src='lib/images/header_logo.png' height='50'/></div>
+            </div>
+        </div>
+        <div id="navbar-links" class="navbar-collapse collapse">
+            <form id='nav_search' class="navbar-form navbar-right mapUI" style="display:none;">
+                    <div class="input-group search-container" >
+                        <input id="searchbox" type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                    </div>
+            </form>
+            <ul id='landing' class="nav navbar-nav">
+                <li><a href="#home" class='landingLink' data-tab='home' data-toggle="collapse" data-target=".navbar-collapse.in"><i class="dynico dynico-home"></i>&nbsp;&nbsp;Home</a></li>
+                <li><a href="#toc" class='landingLink' data-tab='toc' data-toggle="collapse" data-target=".navbar-collapse.in"><i class="glyphicon glyphicon-book"></i>&nbsp;&nbsp;Documentation</a></li>
+                <li class="dropdown">
+                        <a id="AboutDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-question-sign"></i>&nbsp;&nbsp;About <b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#pff" class='landingLink' data-tab='PhillyFreightFinder' data-toggle="collapse" data-target=".navbar-collapse.in"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;&nbsp;Open Freight App Project</a></li>
+                                <li><a href="http://github.com/dvrpcfreight/open-freight-app" class='landingLink' data-tab='data' data-toggle="collapse" data-target=".navbar-collapse.in"><i class="dynico dynico-github"></i>&nbsp;&nbsp;Fork on Github</a></li>
+                                <li><a href="#license" class='landingLink' data-tab='data' data-toggle="collapse" data-target=".navbar-collapse.in"><i class="dynico dynico-certificate"></i>&nbsp;&nbsp;Licenses</a></li>
+                            </ul>
+                </li>
+                <li id='maplink' class='landingUI'><a href="#map" data-tab='map' data-toggle="collapse" data-target=".navbar-collapse.in"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;&nbsp;View Map</a></li>
+            </ul>
+           
+        </div><!--/.navbar-collapse -->
+    </div>
+    <!--landing pages-->
+        <div id='oFFlanding' class='landing fade in landtab-content landingUI'>
+            
+            <!--home tab-->
+                <div id ='home' class='tab-pane active in landing-content'style='color:#333333;'>
+                    <div class='center-block col-md-10' style='float:none;'>
+                        <h3>Open Freight App an Open-source data and mapping template</h3> 
+                    </div>
+                    <div class='center-block col-md-10' style='float:none;'>
+                        <div class='col-md-7 content'>
+                                <p>Open Freight App is a project by the Delaware Valley Regional Planning Commission (DVRPC) to share with regional and national transportation planning partners the framework that is the basis for the <a href="http://www.dvrpc.org/webmaps/phillyfreightfinder/" target="_blank">PhillyFreightFinder</a> web mapping and data application. Through this effort, DVRPC hopes that county planning agencies, metropolitan planning organizations and state departments of transportation, and economic development agencies can leverage this framework to further their efforts in making freight transportation data public. By utilizing the Open Freight App framework, rather than building from scratch, planning agencies can focus their time and resources on the development of data sets that can serve to improve the access to information on freight facilities and their role in economic development and transportation across the country. Open Freight App would serve as a self-hosted solution to offer these datasets to other planners, economic developers, public officials, decision-makers and the general public.</p>
+                            <h4>Details</h4>
+                                <p>Open Freight App, is a white-label, open source version of the DVRPC <a href="http://www.dvrpc.org/webmaps/phillyfreightfinder/" target="_blank">PhillyFreightFinder</a> application. This version is available for download and open for replication by any user. This version will have no branding or color styling applied and a standardized icon set will be provided for a sample set of data. In addition, the project will include the following:</p>
+                                <ul>
+                                    <li>Full documentation and guide on:
+                                        <ul>
+                                            <li>Adding map functionality for layers and features</li>
+                                            <li>Creating info windows for feature data</li>
+                                            <li>Creating and modifying legend and layer controls</li>
+                                            <li>Populating search criteria</li>
+                                            <li>Converting ArcGIS Shapefiles to lightweight GeoJSONs for use in the map</li>
+                                            <li>and more!</li>
+                                        </ul>
+                                    <li>Fully commented versions of all necessary HTML, JavaScript and CSS files</li>
+                                    <li>A starter set of freight facility icons</li>
+                                    <li>License and credit materials</li>
+                                </ul>
+                                <p><em>Advanced coding support is not included with this product. While staff at DVRPC can field general questions and assist with certain aspects of the project, formal support in the form of coding, styling, graphic design and advanced development must be done by an outside consultant. If you require these services please contact us here.</em></p>
+
+                        </div> 
+                        <div class='col-md-5'>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!--region tab-->
+                <div id ='pff' class='tab-pane landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                        <h3>Open Freight App Project</h3> 
+                        <div class='col-md-6 col-lg-6 content'>
+                                <p><a href="http://www.dvrpc.org/webmaps/phillyfreightfinder/" target="_blank">PhillyFreightFinder</a> is built using the Leaflet JavaScript mapping library, a lightweight mobile friendly framework that provides developers an open flexible environment for the development of web maps and applications. The web application leverages the Bootstrap 3.0 front end framework for styling and interface. The application is the core of DVRPC's freight data program and provide partners with a way of accessing and exploring local freight data.</p>
+                                <p>The Open Freight App Project is led by the Office of Freight and Aviation planning as an effort to provide the tool to other agencies for replicaiton. In addition, the open project can be further improved through feedback an collaboration as other begin to implement and explore new uses for the product. The current Open Freight Applicaiton build is intended to streamline the app development process by creating built in shortcuts. As this product is a "live" project updates will be provided periodically.</p>
+                        </div> 
+                        <div class='col-md-6 col-lg-6 content'>
+                                <div class="well well-lg">
+                                    <b>For more information about the project and code please contact the proejct manager:</b>
+                                    <p>Michael Ruane<br/>Transportation Planner<br/>Office of Freight and Aviation Planning<br/>p: 215.238.2888<br/>c: 215.588.8226<br/>e: <a href="mailto:mruane@dvrpc.org">mruane@dvrpc.org</a>
+                                        <br/>
+                                        <p>This is a product of:</p>
+                                        <b>Delaware Valley Regional Planning Commission</b><br/>190 N Independence Mall West<br/>8th Floor<br/>Philadelphia, PA 19106-1520<br/><a href="http://www.dvrpc.org">www.dvrpc.org</a>
+                                </div>
+                        </div> 
+                    </div>
+                </div>
+                <!--docs tab-->
+                <div id ='toc' class='tab-pane landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2 class="doc-title">Documentation</h2> 
+                         <div class='col-md-12 content'>
+                            <h3>Table of Contents</h3>
+                            <ol>
+                                
+                                <li><a href="#toc">Table of Contents</a></li>
+                                <li><a href="#docs">Introduction</a></li>
+                                <li><a href="#docs-1">File Structure</a></li>
+                            
+                                <li><a href="#docs-2">Preparing Data</a></li>
+                                
+                                <li><a href="#docs-3">Creating a Map Instance</a></li>
+                                <li><a href="#docs-4">Creating Custom Map Layers</a></li>
+                                <li><a href="#docs-5">Add Layer Data</a></li>
+                                <li><a href="#docs-6">Add Typeahead Search Functionality for Layers</a></li>
+                                <li><a href="#docs-7">Create Highlight Actions for Layer(s)</a></li>
+                                <li><a href="#docs-8">Add Layers to Sidebar</a></li>
+                                
+                                <li><a href="#docs-9">Dynamic Icon Markers and Layer Control</a></li>
+                                <li><a href="#docs-10">Open Freight Icon Set</a></li>
+                                <li><a href="#docs-11">Dynamic Icon Marker Sets</a></li>
+                            </ol>
+                            <div class="infoDivider"></div>
+                            <div class="btn-group">
+                              <a class="btn btn-default disabled" type="button" >Previous</a>
+                              <a class="btn btn-default" type="button" href="#docs">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ='docs' class='tab-pane landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2 class="doc-title">Documentation</h2> 
+                         <div class='col-md-12 content'>
+                            <h3>Introduction</h3>
+                            <p>The Open Freight Application was developed by the Delaware Valley Regional Planning Commission's as a way to share the components and code base of the PhillyFreightFinder Application. The code provided represents the core structure of the web interface that forms the PhillyFreightFinder App and can be used to create similar application once customized with your data.</p>
+                            <p>The application is available under the <a href="#license">MIT Open Source License</a>, allowing any public or private entity to leverage and customize the platform to meet their needs. This documentation is intended to help those with some development backgournd to better understand the structure of the application and how to customize the interface with their own data.</p>
+                            <h3>Techincal Details</h3>
+                                <p></p>
+                                <h4>Necessary Proficiencies</h4>
+                                    <p>In order to utilize this code set, users should be familiar with:<p>
+                                        <ul>
+                                            <li>Common web languages HTML and CSS</li>
+                                            <li>Javascript and JQuery web language libraries</li>
+                                            <li>GIS Applications (for compilation of geo data)</li>
+                                        </ul>
+                                <h4>Application Dependencies</h4>
+                                    <ul>
+                                        <li><a href="http://leafletjs.com/" target="_blank">Leaflet Javascript Map Library [v0.7.3]</a></li>
+                                        <li><a href="http://getbootstrap.com/" target="_blank">Bootstrap Framework [v3.2.0]</a></li>
+                                        <li><a href="http://jquery.com/" target="_blank">jQuery [v1.10.2]</a></li>
+                                        <li><a href="https://twitter.github.io/typeahead.js/" target="_blank">Twitter Typeahead [v0.10.5]</a></li>
+                                        <li><a href="http://numeraljs.com/" target="_blank">Numeral.js [v1.5.3]</a></li>
+                                    </ul>
+                                <h4>Browser Support</h4>
+                                    <p>It is important to note that the Open Freight Application was built for use in modern browsers. This means that support is limited to newer browser versions. <b>Windows XP users with only IE will not be able to access web applications built with this framework.</b></p>
+                                    <h4>Desktop Browser Support</h4>
+                                    <table class="desktop-browsers">
+            <tbody><tr>
+                <td class="no-borders narrow">&nbsp;</td>
+                <td class="center"><img src="docs/desktopos_windows.png" class="os_logo"></td>
+                <td class="center"><img src="docs/desktopos_mac.png" class="os_logo"></td>
+            </tr>
+            <tr>
+                <td class="narrow"><div class="browserIcon firefoxIcon"></div><div class="browserLabel">Firefox</div></td>
+                <td><div class="yes"><span class="glyphicon glyphicon-ok"></span> 12.0+</div>
+                    <div class="align-right"><a href="http://www.mozilla.org/en-US/firefox/all/" target="_blank">download</a></div>
+                </td>
+                <td>
+                    <div class="yes"><span class="glyphicon glyphicon-ok"></span> 9.0+</div>
+                    <div class="align-right"><a href="http://www.mozilla.org/en-US/firefox/all/" target="_blank">download</a></div>
+                    <div style="clear:both"></div>
+                    <div class="no"><span class="glyphicon glyphicon-remove"></span> 8 and below</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="narrow"><div class="browserIcon internetExplorerIcon"></div><div class="browserLabel">Internet Explorer</div></td>
+                <td>
+                    <div class="yes"><span class="glyphicon glyphicon-ok"></span>  9.0+</div>
+                    <div class="align-right"><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">download</a></div>
+                    <div style="clear:both"></div>
+                    <div class="no"><span class="glyphicon glyphicon-remove"></span> 8.0 and below</div>
+                </td>
+                <td>
+                    <div class="no"><span class="glyphicon glyphicon-remove"></span> No Versions Supported</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="narrow"><div class="browserIcon chromeIcon"></div><div class="browserLabel">Chrome</div></td>
+                <td><div class="yes"><span class="glyphicon glyphicon-ok"></span> Most Recent Stable Version</div>
+                    <div class="align-right"><a href="https://www.google.com/intl/en/chrome/browser/?platform=win" target="_blank">download</a></div>
+                </td>
+                <td><div class="yes"><span class="glyphicon glyphicon-ok"></span> Most Recent Stable Version</div>
+                    <div class="align-right"><a href="https://www.google.com/intl/en/chrome/browser/?platform=mac" target="_blank">download</a></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="narrow"><div class="browserIcon safariIcon"></div><div class="browserLabel">Safari</div></td>
+                <td><div class="no"><span class="glyphicon glyphicon-remove"></span> No Versions Supported</div></td>
+                <td>
+                    <div class="yes"><span class="glyphicon glyphicon-ok"></span> 5+</div>
+                    <div class="align-right"><a href="http://support.apple.com/downloads/#safari" target="_blank">download</a></div>
+                </td>
+            </tr>
+        </tbody></table>
+        <h4>Mobile Browser Support</h4>
+        <table class="mobile-browsers">
+            <tbody><tr>
+                <td><img src="docs/mobileos_ios.png"></td>
+                <td><img src="docs/mobileos_android.png"></td>
+                <td><img src="docs/mobileos_winmobile.png"></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="yes"><span class="glyphicon glyphicon-ok"></span> 4.3+ <br>(iPhone 4S/iPad 2 and newer)</div>
+                </td>
+                <td>
+                    <div class="yes"><span class="glyphicon glyphicon-ok"></span> 4.0.3+ (device performance varies)</div>
+                </td>
+                <td>
+                    <div class="no"><span class="glyphicon glyphicon-remove"></span> 8.1+ (limited support)</div>
+                </td>
+            </tr>
+        </tbody></table>
+                            <div class="infoDivider"></div>
+                            <div class="btn-group">
+                              <a class="btn btn-default" type="button" href="#toc">Previous</a>
+                              <a class="btn btn-default" type="button" href="#docs-1">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ='docs-1' class='tab-pane landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                        <h2 class="doc-title">Documentation</h2> 
+                         <div class='col-md-12 content'>
+                            <h3>File Structure</h3>
+                            <p>The core code of Open Freight App includes all HTML, CSS and Javascript files necessary to build your own application. The following is an explanation of the organization of directories and what each file contains.</p>
+
+                            <h4>Root Directory (.../)</h4>
+                            <table class="table table-bordered table-striped">
+                              <colgroup>
+                                <col class="col-xs-1">
+                                <col class="col-xs-7">
+                              </colgroup>
+                              <thead>
+                                <tr>
+                                  <th>File/directory</th>
+                                  <th>Description</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>/data</td>
+                                  <td>Location for all .geojson, .json, .js and other geographic data sets</td>
+                                </tr>
+                                <tr>
+                                  <td>/lib</td>
+                                  <td>Location of all script, style and image files (component sources)</td>
+                                </tr>
+                                <tr>
+                                  <td>index.htm</td>
+                                  <td>The primary HTML document file that contains the core structure and text content of the application, other than the mapping components.</td>
+                                </tr> 
+                                <tr>
+                                  <td>LICENSE.md</td>
+                                  <td>Open Freight Application is licensed under an MIT license which must be included with all derivative builds. <a href="#license">More info...</a></td>
+                                </tr>                             
+                              </tbody></table>
+                              <h4>Component Sources(.../lib)</h4>
+                            <table class="table table-bordered table-striped">
+                              <colgroup>
+                                <col class="col-xs-1">
+                                <col class="col-xs-7">
+                              </colgroup>
+                              <thead>
+                                <tr>
+                                  <th>File/directory</th>
+                                  <th>Description</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>/assets</td>
+                                  <td>Location of all script, style and image files for all application dependencies.</td>
+                                </tr>
+                                <tr>
+                                  <td>/core</td>
+                                  <td>Location for all script, style and image files that constitute the core of Open Freight App. These files will be updated as the project evolves and should be modified with care. </td>
+                                </tr>
+                                <tr>
+                                  <td>/images</td>
+                                  <td>Location of all image files</td>
+                                </tr>
+                                <tr>
+                                  <td>actions.js</td>
+                                  <td>(Customization Required)The Javascript file that builds the actions which are called when a feature in the map is clicked.</td>
+                                </tr> 
+                                <tr>
+                                  <td>map.js</td>
+                                  <td>(Customization Required)The Javascript file that builds the map, layer features and search functionality.</td>
+                                </tr>   
+                                <tr>
+                                  <td>style.css</td>
+                                  <td>(Customization Required)The stylesheet file that establishes the color scheme and can be used for overriding the core styles.</td>
+                                </tr>                           
+                              </tbody></table>
+                              <h4>Component Sources(.../lib/core)</h4>
+                            <table class="table table-bordered table-striped">
+                              <colgroup>
+                                <col class="col-xs-1">
+                                <col class="col-xs-7">
+                              </colgroup>
+                              <thead>
+                                <tr>
+                                  <th>File/directory</th>
+                                  <th>Description</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <tr>
+                                  <td>/dist</td>
+                                  <td>Location of all core files in an uncompressed, annotated format.</td>
+                                </tr>
+                                <tr>
+                                  <td>/fonts</td>
+                                  <td>Location of all font types for Dynamic Icon Markers. </td>
+                                </tr>
+                                <tr>
+                                  <td>/images</td>
+                                  <td>Location of all images for Dynamic Icon Markers. </td>
+                                </tr>
+                                <tr>
+                                  <td>core.js</td>
+                                  <td>(Advanced Only)The Javascript file that builds the actions powering the interface of the application.</td>
+                                </tr>
+                                <tr>
+                                  <td>core.css</td>
+                                  <td>(Advanced Only)The stylesheet file that establishes the core formatting and color scheme for the application.</td>
+                                </tr>  
+                                <tr>
+                                  <td>dyna.css</td>
+                                  <td>(Advanced Only)The stylesheet file that Open Freight Icon set.</td>
+                                </tr>  
+                                <tr>
+                                  <td>dyna-icons.js</td>
+                                  <td>(Advanced Only)The script file that provides Dynamic Icon functionality.</td>
+                                </tr>                           
+                              </tbody></table>
+                              <p>It is recommended that when preparing a project, if you plan to continue to utilize updates from the Open Freight Project that you do not make revisions to the "core.js" or asset/ files as these will the location of updated elements. If you have any bugs or issues please <a href="mailto:mruane@dvrpc.org">contact DVRPC</a> to report them.</p>
+                              <div class="infoDivider"></div>
+                              <div class="btn-group">
+                                  <a class="btn btn-default" type="button" href="#docs">Previous</a>
+                                  <a class="btn btn-default" type="button" href="#docs-2">Next</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ='docs-2' class='tab-pane fade in landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2 class="doc-title">Documentation</h2>  
+                         <div class='col-md-12 content'>
+                            <h3>Preparing Data</h3>
+                            <h4>1. Create Features</h4>
+                            <p>The first step in creating your web application is to produce your georeferenced data sets. These compilations of features will form the core of the data that will be illustrated and shared through the application. Datasets should contain individual fields for the various types of data that you would like to show in your application as shown in the figure to the right.</p>
+                            <h4>2. Export for Use Online</h4>
+                            <p>Your completed GIS files will need to be converted to an open format in order to be used with this application framework. The Leaflet mapping API supports several file types and integration with geodatabases, however we will only document methods of exporting to simple geojson files which can be served from any web server. The following are three methods to convert GIS shapefiles to GeoJSONs for use with this mapping framework:</p>
+                            <p><b>Exporting from ArcGIS to GeoJSON</b></p>
+                            <p>In order to convert your shapefiles in ArcGIS, we recommend using esri2open a free tool set available at <a href="https://github.com/project-open-data/esri2open" target="_blank">through Project Open Data on GitHub</a>. Documentation is available at the link provided.
+                            <p><b>Exporting from QGIS to GeoJSON</b></p>
+                            <ol>
+                                <li>Ensure that all of the shapefile layers are set to a projection of WGS 84</li>
+                                <li>Right-click on the layer you wish to export and select "Save as"</li>
+                                <li>Select "geoJSON"</li>
+                                <li>Repeat for all additional features</li>
+                            </ol>
+                            <i><a href="http://www.digital-geography.com/geojson-with-qgis-and-leaflet-from-data-to-map/#.U-vA9fldXTo" target="_blank">Click here</a> for a full tutorial.</i>
+                            <p>For those with access to a hosted ArcServer, feature sets can be served from there. For more information on that process consult ESRI and Leaflet documentation.</p>
+                            <h4>3. Add to Project Directory</h4>
+                            <p>When all file sets have been created they should be placed in the "/data" directory in the project folder. Be sure to save the file sets with simple clear names. If your web server is capable of utilizing geoJSON files then your data is ready for use. If your server is not you can a)contact your server adminstrator to enable this file type or b)convert all geoJSONs to .js (Javascript) files.</p>
+                            <p><b>Converting geoJSON to Javascript</b></p>
+                            <ol>
+                                <li>Ensure that all of the shapefile layers are set to a projection of WGS 84</li>
+                                <li>Right-click on the layer you wish to export and select "Save as"</li>
+                                <li>Select "geoJSON"</li>
+                                <li>Repeat for all additional features</li>
+                            </ol>
+
+                            <div class="infoDivider"></div>
+                            <div class="btn-group">
+                                  <a class="btn btn-default" type="button" href="#docs-1">Previous</a>
+                                  <a class="btn btn-default" type="button" href="#docs-3">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ='docs-3' class='tab-pane fade in landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2 class="doc-title">Documentation</h2>  
+                         <div class='col-md-12 content'>
+                            <h3>Creating a Map Instance</h3>
+                            <p>The Open Freight App comes preconfigured with a div element in the "index.htm" file of the application that is designed to contain the Leaflet map instance. This element has an ID of "mapDIV". This HTML content is necessary in order to populate the application with map elements, the ID will be used later to tell Leaflet where to put the map.
+<pre><code class="xml hljs "><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-sm-9 col-lg-9 mapUI"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"mapDIV"</span>  <span class="hljs-attribute">style</span>=<span class="hljs-value">"display:none;"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"loading"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"display: block;"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"loading-indicator"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"progress progress-striped active"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"progress-bar progress-bar-info"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"width: 100%"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
+				<p>This code does not need to be edited in order for the application to work.</p>
+                <h4>1. Define the Region</h4>
+                <p>In order for the map to show your region in the default view it necessary to identify the appropriate center point of the region and the scale level at which the full extent is shown. You will need the lat/long coordinates and the correct scale level. Once you have acquired these open the "map.js" file and add the appropriate values for oLat, oLng and zLevel for your region.</p>
+                <pre><code class="js">//declare boundary of region
+var oLat = 40.018, oLng = -75.148, zLevel = 10;</code></pre>
+                            <h4>2. Define Basemap Layers</h4>
+                            <p>Basemap layers are tiled image layers that provide static data such as aerial imagery, roads, land features and labels. Many different basemap layers are available "out of the box" in Leaflet applications. To see all options check out Leaflet Providers.<br>In order to add basemap layers, we use the Leaflet API to declare them:</p>
+                            <pre><code class="js">// Basemap Layers
+var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+var Esri_WorldGrayCanvas = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+    maxZoom: 16
+});</code></pre>
+							<h4>3. Create Map Instance</h4>
+                            <p>With map context and basemaps declare we are now able to create the map instance using Leaflet API. To do this we create a variable "map" that uses the Leaflet API to create a map instance in the HTML DOM element "mapDIV" that is located in the "index.htm" file. In the "options" variables we can adjust the baselayer that loads by default using the "Layers" attribute.</p>
+                            <pre><code class="js">//create map instance
+var map = L.map("mapDIV", {
+    minZoom: zLevel,
+    zoomControl: false,
+    layers: [Esri_WorldGrayCanvas]
+}).setView([oLat, oLng],zLevel);</code></pre>
+							<h4>4. Add Base Layer Control (optional)</h4>
+                            <p>To allow users to control the visible base layer we use the default Leaflet base layer control. If this is not desired, simply do not add or remove the following code:</p>
+                            <pre><code class="js">//add Layer Control to map
+var baseLayers = {
+    "Street Map": Esri_WorldGrayCanvas,
+    "Satellite": Esri_WorldImagery     
+};
+L.control.layers(baseLayers).addTo(map);</code></pre>
+							<p>With the core map elements now declared and pushed to the index file custom data layers can now be added to the "map" instance.
+                            <div class="infoDivider"></div>
+                            <div class="btn-group">
+                                  <a class="btn btn-default" type="button" href="#docs-2">Previous</a>
+                                  <a class="btn btn-default" type="button" href="#docs-4">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ='docs-4' class='tab-pane fade in landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2 class="doc-title">Documentation</h2> 
+                         <div class='col-md-12 content'>
+                            <h3>Creating Custom Map Layers</h3>
+                            <p>The Open Freight Application has been built to simplify and partially automate the production of a web mapping application leveraging the Leaflet Javascript library. The creation of Map Layers and the variables declared in these steps are essential for the application to build and render the map features, legend and the associated information popup window.</p>
+                            <p>The application includes a plugin capable of building map markers and associated legend icons from a selection of predefined markers and any icon font that user selects. This Dynamic Icon Marker plugin is an expansion on the Awesome Marker project. Learn more about <a href="#docs-9">Dynamic Icon Marker</a>.</p>
+                            <p><b>(a)</b> The first step is define the Dynamic Icon Marker presets as the variable "IconPresets". These will be used to style the map and legend markers as well as tell the plugin which icon set to draw from. The required options are as follows:</p>
+                            <pre><code class="js">//define Icon Set and Marker Types 
+var IconPresets = {iconSet:'dynico', markerSet: 'open-freight', mapMarker: 'circle-cm', legendMarker: 'circle-md'};</code></pre>
+							<p><i>As noted in the Dynamic Icon Marker plugin docs the "legendMarker" is optional and will match the mapMarker is desired. Learn more about variable options...</i></p>
+							<p><b>(b)</b> The next step is to define an icon for each layer that will be: i. clickable in the map (all poly, point, or combo layers), ii. toggled by the sidebar layer control. If a layer is represented by both point and poly features it only require the declaration of one icon. In the options that are declared the "layer:" is most important as it will be related to layer control functions later in the application's development. In this case the code is declared for four layers: layer1, layer2, layer3, and layer4. Each layer will require an icon, markerColor, layer name, title(label) and the inclusion of the "IconPresets" variable. </p>
+							<pre><code class="js">var layer1icon = L.OpenFreightMarkers.icon({
+	icon: 'nhs', markerColor: 'red', layer:'layer1', title: 'Layer 1'}, IconPresets),
+layer2icon = L.OpenFreightMarkers.icon({
+	icon: 'parking', markerColor: 'red', layer:'layer2', title: 'Layer 2'}, IconPresets),
+layer3icon = L.OpenFreightMarkers.icon({
+	icon: 'nhs', markerColor: 'teal', layer:'layer3', title: 'Layer 3'}, IconPresets),
+layer4icon = L.OpenFreightMarkers.icon({
+	icon: 'bridge', markerColor: 'teal', layer:'layer4', title: 'Layer 4'}, IconPresets);</code></pre>	
+                            <div class="infoDivider"></div>
+                            <div class="btn-group">
+                                  <a class="btn btn-default" type="button" href="#docs-3">Previous</a>
+                                  <a class="btn btn-default" type="button" href="#docs-5">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ='docs-5' class='tab-pane fade in landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2 class="doc-title">Documentation</h2> 
+                         <div class='col-md-12 content'>
+                         <h3>Add Layer Data</h3>
+                         	<ul class="nav nav-tabs" id="AddLayer" role="tablist">
+							  <li class="active"><a data-target="#poly" >Polyline/Polygon Layer</a></li>
+							  <li><a data-target="#point" >Point Layer</a></li>
+							  <li><a data-target="#combo" >Combo Layer</a></li>
+							</ul>
+							<div class="tab-content">
+							  <div class="tab-pane active" id="poly"><h4>Add data for a Polyline/Polygon Feature Layer</h4>
+                            <p>In the Leaflet API polylines and polygons are handled in a similar way. The following steps outline the declaration of these feature types. These declarations should be placed in the "map.js" file.</p>
+                            <b>(a)</b> Create a new variable with a name for your layer and activate the Leaflet geoJSON function:<pre><code class="js">var layer1 = L.geoJson(null, {</code></pre><b>(b)</b> Add style elements for the feature to be rendered with. Consult Leaflet Documentation on styles for help.<pre><code class="js">style: {fillColor: "#F9AB90", fillOpacity:.50, weight:1, color:"#E0E0E0 ", opacity:.75}, </code></pre><b>(c)</b> Define actions to be applied on each feature in the layer.<pre><code class="js">onEachFeature: function (feature, layer){</code></pre><b>(d)</b> Define actions during mouse events for layer.<pre><code class="js">layer.on({
+    //action on click --> function must be created in actions.js
+    click: highlightLayer1,	
+    //action on double click  --> zoom to polygon function predefined in action.js						
+    dblclick: zoomToFeature 						
+});</code></pre><b>(e)</b> Push search parameters to the corresponding array for use by Typeahead.js and then close layer declaration. <i>Note the variable "bounds" necessary for a poly feature layer.</i><pre><code class="js">layer1Search.push({							
+	//search name: based on field name "Name"
+	name: layer.feature.properties.Name,			
+	//layer source for use as title in Typeahead
+	source: "Layer 1",	
+	//leaflet id for callback							
+	id: L.stamp(layer),	
+	//geometric bounds declaration for polygon						
+	bounds: layer.getBounds()						 
+    });
+}
+});</code></pre><b>(f)</b> Get data from geoJSON using getJSON function. The last line is necessary for all poly features in order to maintain style settings. <i>Layers will added to the map after all have been declared.</i><pre><code class="js">$.getJSON("data/layer1.json", function (data) {
+	layer1.addData(data);
+});
+polyLayer.push('layer1');</code></pre>
+		<p><b>The final compiled code for declaring a polygon data layer should include all of the following:</b></p>
+		<pre><code class="js">//define Layer 1 (poly feature only)
+var layer1 = L.geoJson(null, {
+    style: {fillColor: "#F9AB90", fillOpacity:.50, weight:1, color:"#E0E0E0 ", opacity:.75},  
+    onEachFeature: function (feature, layer){		
+        layer.on({						
+            click: highlightLayer1,					
+            dblclick: zoomToFeature 					
+        });
+        layer1Search.push({							
+            name: layer.feature.properties.Name,			
+            source: "Layer 1",							
+            id: L.stamp(layer),							
+            bounds: layer.getBounds()						
+        });
+    }
+});
+$.getJSON("data/layer1.json", function (data) {		
+	layer1.addData(data);
+});
+polyLayer.push('layer1');</code></pre></div>
+							  <div class="tab-pane" id="point"><h4>Add data for a Point Feature Layer</h4>
+                            <p>In the Leaflet API points from a geoJson can be added using the following steps. These declarations should be placed in the "map.js" file. </p>
+                            <b>(a)</b> Create a new variable with a name for your layer and activate the Leaflet geoJSON function:<pre><code class="js">var layer2 = L.geoJson(null, {</code></pre><b>(b)</b> Using Leaflet API convert the geoJSON points to marker layers and declare the icon value for the given layer.<pre><code class="js">pointToLayer: function (feature, latlng) {
+return L.marker(latlng, {icon: layer2icon});	
+},</code></pre><b>(c)</b> Define actions to be applied on each feature in the layer.<pre><code class="js">onEachFeature: function (feature, layer){</code></pre><b>(d)</b> Define actions during mouse events for layer.<pre><code class="js">layer.on({
+    //action on click --> function must be created in actions.js
+    click: highlightLayer2,	
+    //action on double click  --> zoom to point function predefined in action.js						
+    dblclick: zoomToPoint 						
+});</code></pre><b>(e)</b> Push search parameters to the corresponding array for use by Typeahead.js and then close layer declaration. <i>Note the variables "lat" and "lng" necessary for a point feature layer.</i><pre><code class="js">layer2Search.push({							
+	//search name: based on field name "Name"
+	name: layer.feature.properties.Name,			
+	//layer source for use as title in Typeahead
+	source: "Layer 2",	
+	//leaflet id for callback							
+	id: L.stamp(layer),	
+	//geometric bounds declaration for points (requires lat and lng)						
+	lat: layer.feature.geometry.coordinates[1],		
+	lng: layer.feature.geometry.coordinates[0]						 
+    });
+}
+});</code></pre><b>(f)</b> Get data from geoJSON using getJSON function. <i>Layers will added to the map after all data has been declared.</i><pre><code class="js">$.getJSON("data/layer2.json", function (data) {
+	layer2.addData(data);
+});</code></pre>
+		<p><b>The final compiled code for declaring a polygon data layer should include all of the following:</b></p>
+		<pre><code class="js">//define Layer 2 (point feature only)
+var layer2 = L.geoJson(null, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {icon: layer2icon});	
+        },
+    onEachFeature: function (feature, layer){		
+        layer.on({											
+           click: highlightLayer2,							
+            dblclick: zoomToPoint							
+        });
+        layer2Search.push({								
+            name: layer.feature.properties.Name,			
+            source: "Layer 2",							
+            id: L.stamp(layer),								
+            lat: layer.feature.geometry.coordinates[1],		
+            lng: layer.feature.geometry.coordinates[0]						
+        });
+    }
+});  
+$.getJSON("data/layer2.json", function (data) {
+	layer2.addData(data);
+});</code></pre></div>
+							  <div class="tab-pane" id="combo"><h4>Adding Data for Layer using Points and Poly Features</h4>
+							 <p>In certain cases it may be necessary to represent individual features using both point icons and a polyline or polygon. This type of representation is helpful for small geographic facilities to be clearly visible at a large regional scale. The steps to adding data is similar to the steps used for adding a point or poly feature. However in this case, the Typeahead search functionality should only be added to the poly feature. After these are added it is important to utilize the "L.FeatureGroup" function to instruct Leaflet to treat the data sets as a single layer. <i>It is important in data preparation that the point geoJSON and poly geoJSON have the same data fields.</i>
+							<p><b>The final compiled code for declaring point and poly data sets added as a layer should look like the following:</b></p>
+		<pre><code class="js">//define Layer 3 (point and poly combo)
+//declare point data first 
+var layer3pt = L.geoJson(null, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {icon: layer3icon});	
+        },
+    onEachFeature: function (feature, layer){			
+        layer.on({											
+            click: highlightLayer3,								
+            dblclick: zoomToPoint								
+        });
+    }
+});  
+$.getJSON("data/layer3pt.json", function (data) {
+	layer3pt.addData(data);
+});
+//declare polygon data 
+var layer3poly = L.geoJson(null, {
+    style: {fillColor: "#C1332B", fillOpacity:.50, weight:1, color:"#E0E0E0 ", opacity:.75},   
+    onEachFeature: function (feature, layer){
+        layer.on({
+            click: highlightLayer3,
+            dblclick: zoomToFeature
+        });
+        layer4Search.push({
+            name: layer.feature.properties.Name,
+            source: "Layer 3",
+            id: L.stamp(layer),
+            bounds: layer.getBounds()
+        });
+    }
+});
+$.getJSON("data/layer3poly.json", function (data) {
+    layer3poly.addData(data);
+});
+polyLayer.push('layer3poly');
+//create layer group for Layer 3 point and polyline features
+var layer3 = new L.FeatureGroup([layer3pt, layer3poly]);</code></pre> </div>
+							</div>
+
+                            
+                            
+                            <div class="infoDivider"></div>
+                            <div class="btn-group">
+                                  <a class="btn btn-default" type="button" href="#docs-4">Previous</a>
+                                  <a class="btn btn-default" type="button" href="#docs-6">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ='docs-6' class='tab-pane fade in landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2 class="doc-title">Documentation</h2> 
+                         <div class='col-md-12 content'>
+                             <h3>Add Typeahead Search Functionality for Layers</h3>
+                             <p>The Open Freight Application leverages the Typeahead.js library to provide a simple search functionality. In order to make use of the framework each data set pushes search criteria to a corresponding array and the following code processes that data for use and consumption in the Typeahead search box. These code elements should be added in the "map.js" file.</p>
+                             <b>This tutorial will walk through the process for adding two layers to the functionality, Layer 1 (poly) and Layer 2 (point).</b>
+                             <b>(a)</b> The first step is to declare the necessary click function for the "#searchbox" element and ensure that AJAX functions have completed.<pre><code class="js">$("#searchbox").click(function () {
+    $(this).select();
+});
+
+// Typeahead search functionality
+$(document).one("ajaxStop", function() {
+    $("#loading").hide();</code></pre> 
+                             <b>(b)</b> Add data for each of the layers using the following code, followed by an initialization call.<pre><code class="js">var layer1BH = new Bloodhound({
+    name: "Layer 1",
+    datumTokenizer: function (d) {
+        return Bloodhound.tokenizers.whitespace(d.name);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: layer1Search,
+    limit: 10
+});
+var layer2BH = new Bloodhound({
+    name: "Layer 2",
+    datumTokenizer: function (d) {
+        return Bloodhound.tokenizers.whitespace(d.name);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: layer2Search,
+    limit: 10
+});
+//intialize
+layer1BH.initialize();
+layer2BH.initialize();</code></pre>
+                            <b>(c)</b> Activate the Typeahead functionality for the "#searchbox" element. A set of options is declared followed by each layer.<pre><code class="js">$("#searchbox").typeahead({
+    //define options (see Typeahead documentation)
+    minLength: 2,
+    highlight: true,
+    hint: false
+},{
+    name: "Layer1data",
+    displayKey: "name",
+    source: layer1BH.ttAdapter(),
+    templates: {
+        header: "&lt;h5 class='typeahead-header'&gt;&lt;img src='lib/images/flat/layer1.png' class='searchico'&gt;Layer 1&lt;/h5&gt;"
+    }
+},{
+    name: "Layer2data",
+    displayKey: "name",
+    source: layer2BH.ttAdapter(),
+    templates: {
+        header: "&lt;h5 class='typeahead-header'&gt;&lt;img src='lib/images/flat/layer2.png' class='searchico'&gt;Layer 2&lt;/h5&gt;"
+    }
+})</code></pre>
+                            <b>(d)</b> Define actions on the event of a result being selected.<pre><code class="js">.on("typeahead:selected", function (obj, datum) {       //define action on selection of a search result
+if (datum.source === "Layer 1") {                       
+    if (!map.hasLayer(layer1)) {                        
+        map.addLayer(layer1);                       
+        $("#layer1").prop("checked", true);         
+    };
+    map.fitBounds(datum.bounds);                        
+    if (map._layers[datum.id]) {                    
+        map._layers[datum.id].fire("click");    
+    }; 
+};
+if (datum.source === "Layer 2") {
+    if (!map.hasLayer(layer2)) {
+        map.addLayer(layer2);
+        $("#layer2").prop("checked", true);
+    };
+    map.setView([datum.lat, datum.lng], 17);        
+    if (map._layers[datum.id]) {
+        map._layers[datum.id].fire("click");
+    }; 
+};</code></pre>             <p>All other code related to the Typeahead functionality provides the formatting for the search box.</p>
+                            
+                            <div class="infoDivider"></div>
+                            <div class="btn-group">
+                                  <a class="btn btn-default" type="button" href="#docs-5">Previous</a>
+                                  <a class="btn btn-default" type="button" href="#docs-7">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ='docs-7' class='tab-pane fade in landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2 class="doc-title">Documentation</h2> 
+                         <div class='col-md-12 content'>
+							 <h3>Create Highlight Actions for Layer(s)</h3>
+                    <p>Once a feature layer is declared, it is neccesary to create the action that populates the info window on a click event with the feature's data. This action will be created in the "action.js" file. Multiple data layers can use the same highlight function <b>only if</b> they share the same field names and data structure. Otherwise, each data layer will require its own highlight function.</p>
+                    <b>(a)</b> Create new function with action name created in the click event and declare the "initializeHL" function which is necessary to identify the source of the action and clear previously highlighted features.<pre><code class="js">function highlightLayer1(e) {
+initializeHL(e);</code></pre>
+                    <b>(b)</b> Extract data from feature and create HTML content. The extraction of data is simple and based on the field name within the data set that is desired. Every data point you use will be formatted as "props.'FIELDNAME'". So for a field name of 'Center_Typ' in the GIS data the call in this function would be written "props.Center_Typ". For the default info window there are two sets of HTML content being created. The first is "header" which contains the desired feature title or name. The second is "content" which can contain any data you wish to express in the body of the info windows. For readability the application includes HTML formatted as a multiline variable with a backslash used to tell the Javascript engine that the string continues. For the variable "props.Acres" the <a href="http://numeraljs.com/" target="_blank">numeral.js</a> plugin is used to format the data, for more information consult the <a href="http://numeraljs.com/" target="_blank">plugin docs</a>.<pre><code class="js">header = '&lt;p&gt;' + props.Name + '&lt;/p&gt;',
+content = "&lt;div id='baseInfo'&gt;\
+&lt;div class='datafield'&gt;" + props.Center_Typ + "&lt;/div&gt;&lt;div class='labelfield'&gt;Type&lt;/div&gt;\
+&lt;div class='datafield'&gt;" + props.Township_s + "&lt;/div&gt;&lt;div class='labelfield'&gt;Municipality(ies): &lt;/div&gt;\
+&lt;/div&gt;&lt;!--close baseInfo--&gt;\
+&lt;div class='infoDivider'&gt;&lt;/div&gt;\
+&lt;div id='indactorInfo'&gt;\
+&lt;ul class='nav nav-tabs'&gt;&lt;!--tabs for indicators--&gt;\
+&lt;li class='active'&gt;&lt;a href='#Cap' data-toggle='tab'&gt;Capacity &#038; Activity&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;\
+&lt;div id='indicator' class='tab-content'&gt;&lt;!--tab panes--&gt;\
+&lt;div class='tab-pane active' id='Cap' style='padding-bottom: 12px;'&gt;\
+        &lt;table class='table table-hover'&gt;\
+        &lt;tr class='active'&gt;&lt;td&gt;&lt;strong&gt;Acres: &lt;/strong&gt;&lt;/td&gt;&lt;td&gt;" + numeral(props.Acres).format('0,0.0') + "&lt;/td&gt;&lt;/tr&gt;\
+        &lt;tr&gt;&lt;td&gt;&lt;strong&gt;Output: &lt;/strong&gt;&lt;/td&gt;&lt;td&gt;not available&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;\
+&lt;/div&gt;&lt;/div&gt;\
+&lt;div class='labelfield source'&gt;Data Source: " + props.Source + "&lt;/div&gt;&lt;/div&gt;",</code></pre>
+                    <b>(c)</b> (Optional) The default functionality of the Dynamic Icon Markers component of the Open Freight Application utilizes the variables declared in the "map.js" file to style the info window. However, if there is a need to override the "Title" or header class, those values must be declared in this action. These are optional and only necessary in advanced uses.<pre><code class="js">//optional featureName override for use in place of title variable
+titleName = '&lt;p&gt;Type: '+ props.Name +'&lt;/p&gt;',
+//optional header class override
+headerClass = 'layer1NewClass',</code></pre>
+                    <b>(d)</b> Declare layer name that corresponds to the layer name established in the icon declarations made in "map.js". This will instruct the application how to build and style the info window. Then add the "contentPush()" function as written below.</p><pre><code>layerName = 'layer1';
+contentPush(header, content, layerName, titleName, headerClass);</code></pre>
+                    <b>The final compiled function to highlight a feature should look like this and be located in the "actions.js" file.</b><pre><code class="js">function highlightLayer1(e) {
+    initializeHL(e);
+    header = '&lt;p&gt;' + props.Name + '&lt;/p&gt;',
+    content = "&lt;div id='baseInfo'&gt;\
+    &lt;div class='datafield'&gt;" + props.Center_Typ + "&lt;/div&gt;&lt;div class='labelfield'&gt;Type&lt;/div&gt;\
+    &lt;div class='datafield'&gt;" + props.Township_s + "&lt;/div&gt;&lt;div class='labelfield'&gt;Municipality(ies): &lt;/div&gt;\
+    &lt;/div&gt;&lt;!--close baseInfo--&gt;\
+    &lt;div class='infoDivider'&gt;&lt;/div&gt;\
+    &lt;div id='indactorInfo'&gt;\
+    &lt;ul class='nav nav-tabs'&gt;&lt;!--tabs for indicators--&gt;\
+    &lt;li class='active'&gt;&lt;a href='#Cap' data-toggle='tab'&gt;Capacity &#038; Activity&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;\
+    &lt;div id='indicator' class='tab-content'&gt;&lt;!--tab panes--&gt;\
+    &lt;div class='tab-pane active' id='Cap' style='padding-bottom: 12px;'&gt;\
+        &lt;table class='table table-hover'&gt;\
+        &lt;tr class='active'&gt;&lt;td&gt;&lt;strong&gt;Acres: &lt;/strong&gt;&lt;/td&gt;&lt;td&gt;" + numeral(props.Acres).format('0,0.0') + "&lt;/td&gt;&lt;/tr&gt;\
+        &lt;tr&gt;&lt;td&gt;&lt;strong&gt;Output: &lt;/strong&gt;&lt;/td&gt;&lt;td&gt;not available&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;\
+    &lt;/div&gt;&lt;/div&gt;\
+    &lt;div class='labelfield source'&gt;Data Source: " + props.Source + "&lt;/div&gt;&lt;/div&gt;",
+    layerName = 'layer1';
+    contentPush(header, content, layerName, titleName, headerClass);
+};</code></pre>
+							 
+							 <div class="infoDivider"></div>
+                            <div class="btn-group">
+                                  <a class="btn btn-default" type="button" href="#docs-6">Previous</a>
+                                  <a class="btn btn-default" type="button" href="#docs-8">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ='docs-8' class='tab-pane fade in landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2 class="doc-title">Documentation</h2> 
+                         <div class='col-md-12 content'>
+							<h3>Add Layers to Sidebar</h3>
+                             <p>Adding layer control functionality to the application when using Dynamic Icon Marker. The layer controls are built based on the declarations of the layers in the "map.js", however in order to render them properly it is necessary to build out some HTML components in the sidebar. These components are built using the bootstrap accordion panels. The can be divided by groupings or as a single panel. This example demonstrates adding a single panel with all the necessary code elements for the application helpers to populate the elements.</p>
+                             <b>(a)</b> In the sidebar HTML element of the "index.html" add a panel by first creating the panel-group heading wrapper.<pre><code class="html">&lt;div class="panel-group legend"&gt;
+    &lt;div class="panel panel-default"&gt;
+        &lt;div class="panel-heading"&gt;</code></pre>
+                            <b>(b)</b> If there is additional information to be provided about the layer group, add this line to create a link to trigger a modal window that should created and populated with the appropriate information. The "panelinfo" class is essential for creating the icon, while the "group1_panel" is optional and can be matched to a CSS style to color code the heading elements.<pre><code class="html">&lt;a href="modal_1.html" data-toggle="modal" data-target="#modal_1"&gt;&lt;div class="panelinfo group1_panel"&gt;&lt;/div&gt;&lt;/a&gt;</code></pre>
+                            <b>(c)</b> The next grouping is the header name and link to toggle the accrodion open/closed. The "panellink" class is essential for creating the functionality, while the "group1_panel" is optional and can be matched to a CSS style to color code the heading elements by grouping. The href declares the group name/id.<pre><code class="html">&lt;a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_1"&gt;
+    &lt;div class="panellink group1_panel"&gt;
+        &lt;span&gt;Layer Group 1&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/a&gt;</code></pre>           
+                            <b>(d)</b> The next line provides the ability to toggle all layers in the group on and off. The "group1_panel" class is optional to match a CSS header style.<pre><code class="html">&lt;a class="checked_all togglebox group1_panel"&gt;&lt;/a&gt;</code></pre>
+                            <p><b>The final compiled panel heading should look like this</b></p>
+                            <pre><code class="html">&lt;div class="panel-heading"&gt;
+    &lt;a href="modal_1.html" data-toggle="modal" data-target="#modal_1"&gt;&lt;div class="panelinfo group1_panel"&gt;&lt;/div&gt;&lt;/a&gt;
+    &lt;a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_1"&gt;
+        &lt;div class="panellink group1_panel"&gt;
+            &lt;span&gt;Layer Group 1&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/a&gt;
+    &lt;a class="checked_all togglebox"&gt;&lt;/a&gt;
+&lt;/div&gt; </code></pre>
+                            <b>(e)</b> Next add the panel body elements. In the first line the div id should match href declared in the header content above. <pre><code class="html">&lt;div id="Group_1" class="panel-collapse collapse in"&gt;
+    &lt;div class="panel-body legPanel"&gt;</pre></code>
+        <b>(f)</b> Inside the panel body elements declare, in the desired order, each of the layers of the grouping. Each input element for the layers will require an id with the layer name declared for the layer in the "map.js" and a z-index value to help the application add the layers in order when toggled.<pre><code class="html">      &lt;input type="checkbox" name="LayerCont" id="layer1" class="dyna layer" z-index="2" &gt;
+        &lt;input type="checkbox" name="LayerCont" id="layer2" class="dyna layer" z-index="3" &gt; 
+    &lt;/div&gt;
+&lt;/div&gt;</pre></code>
+                            <p><b>The full final compiled legend panel should look like this</b></p>
+                            <pre><code class="html">&lt;div class="panel-group legend"&gt;
+    &lt;div class="panel panel-default"&gt;
+        &lt;div class="panel-heading"&gt;
+            &lt;a href="modal_1.html" data-toggle="modal" data-target="#modal_1"&gt;&lt;div class="panelinfo group1_panel"&gt;&lt;/div&gt;&lt;/a&gt;
+            &lt;a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_1"&gt;
+                &lt;div class="panellink group1_panel"&gt;
+                    &lt;span&gt;Layer Group 1&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/a&gt;
+            &lt;a class="checked_all togglebox"&gt;&lt;/a&gt;
+        &lt;/div&gt; 
+        &lt;div id="Group_1" class="panel-collapse collapse in"&gt;
+            &lt;div class="panel-body legPanel"&gt;
+                    &lt;input type="checkbox" name="LayerCont" id="layer1" class="dyna layer" z-index="2" &gt;
+                    &lt;input type="checkbox" name="LayerCont" id="layer2" class="dyna layer" z-index="3" &gt;
+               
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre></code>
+							<div class="infoDivider"></div>
+                            <div class="btn-group">
+                                  <a class="btn btn-default" type="button" href="#docs-7">Previous</a>
+                                  <a class="btn btn-default" type="button" href="#docs-9">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                <div id ='docs-9' class='tab-pane fade in landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2 class="doc-title">Documentation</h2> 
+                         <div class='col-md-12 content'>
+                         	<h3>Dynamic Icon Markers and Layer Control</h3>
+                            <p>This functionality provides users of the Open Freight Application an easy, streamlined method for creating custom map markers using any icon font set. For those requiring custom icons, the IcoMoon App can be used to create icon fonts from SVG source files. Using Dynamic Icon Markers and Layer Control functionality, the user can declare a series of options that will create a uniform identity for individual layers across the applicaiton. Using this functionality much of the layer control panel is built automatically and the styling for infowindows is created to the selected layer.<br/>
+                                <p>Below are the options that can be declared in the "map.js" file, when <a href="#docs-4">creating custom layers</a>.</p>
+				            <h4>Basic Options</h4>
+                            <table class="table table-bordered table-striped">
+                              <colgroup>
+                                <col class="col-xs-1">
+                                <col class="col-xs-1">
+                                <col class="col-xs-1">
+                                <col class="col-xs-7">
+                              </colgroup>
+                              <thead>
+                                <tr>
+                                  <th>Option</th>
+                                  <th>Type</th>
+                                  <th>Default</th>
+                                  <th>Description</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                              	<td colspan="4"><b>Marker Options</b></td>
+                              </tr>
+                                <tr>
+                                  <td>markerSet</td>
+                                  <td>string</td>
+                                  <td>'open-freight'</td>
+                                  <td>Determines the marker set that will be utilized for the application. Explanation of market sets and value options are available here.</td>
+                                </tr>
+                                <tr>
+                                  <td>mapMarker</td>
+                                  <td>string</td>
+                                  <td>'circle-md'</td>
+                                  <td>Declares the marker class for the style of markers to be used to render points in the map. Map markers can be declared globally or by layer. A reference for marker class options is available here.</td>
+                                </tr>
+                                <tr>
+                                  <td>legendMarker</td>
+                                  <td>string</td>
+                                  <td>'circle-md'</td>
+                                  <td>Declares the marker class for the style of markers to be used to render markers in the legend. Legend markers can be declared globally or by layer. A reference for marker class options is available here. A value of 'checkbox' will replace legend markers with a simple checkbox.</td>
+                                </tr>
+                                <tr>
+                                  <td>markerColor</td>
+                                  <td>string</td>
+                                  <td>'blue'</td>
+                                  <td>The marker color is based on the value from the corresponding marker set that has been selectee for use. This variable can be set globally and/or by layer.</td>
+                                </tr>
+                                <tr>
+	                              	<td colspan="4"><b>Icon Options</b></td>
+	                              </tr>
+                                <tr>
+                                  <td>iconSet</td>
+                                  <td>string</td>
+                                  <td>'dynico'</td>
+                                  <td>Identifies the icon set that will be used to call icons into the application. Variable can be set globally and/or by layer. The value is based on the prefix of the icon font to utilized, including custom made icon fonts.</td>
+                                </tr>
+                                <tr>
+                                  <td>iconColor</td>
+                                  <td>string | Color</td>
+                                  <td>'white'</td>
+                                  <td>Determines the color for the icon element of the marker. The variable can be 'black' or 'white' or any hex color formatted as '#ffffff'.</td>
+                                </tr> 
+                                <tr>
+                                  <td>icon</td>
+                                  <td>string</td>
+                                  <td>''</td>
+                                  <td>Identifies the icon to appear as the symbol for a given layer or all layers if declared globally. The icon name corresponds to the icon name established by the icon set selected for use. Information on the icon options for the Open Freight Icon set <a href="#docs-11">available here</a>.</td>
+                                </tr>
+                                <tr>
+                              	<td colspan="4"><b>Map Layer Options</b></td>
+                              </tr>
+                                <tr>
+                                  <td>layer</td>
+                                  <td>string</td>
+                                  <td>''</td>
+                                  <td>Identifies the variable name for the layer associated with the variable options declared. This variable is declared with each layer declaration and should be consistent with value used for the corresponding input id in the legend panels. See legend documentation for more information.</td>
+                                </tr>
+                                <tr>
+                                  <td>title</td>
+                                  <td>string</td>
+                                  <td>''</td>
+                                  <td>Identifies the proper name of the layer with which variables are associated. This title will be used for the label value in the sidebar legend as well as the layer identification in the Info Window pop-up, unless otherwise over written. This variable is declared by layer.</td>
+                                </tr>
+                                <tr>
+                                  <td>onLoad</td>
+                                  <td>boolean</td>
+                                  <td>true</td>
+                                  <td>Determines if a layer is added to the map on initialization of the Leaflet map instance with which the layer is associated.</td>
+                                </tr>
+                              </tbody></table>			 
+
+
+                         <div class="infoDivider"></div>
+                            <div class="btn-group">
+                                  <a class="btn btn-default" type="button" href="#docs-8">Previous</a>
+                                  <a class="btn btn-default" type="button" href="#docs-10">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ='docs-10' class='tab-pane fade in landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2 class="doc-title">Documentation</h2>  
+                         <div class='col-md-12 content'>
+                            <h3>Open Freight Icon Set</h3>
+                            <p>This icon set has been created as a part of the Open Freight App project and is a launching point for agencies to identify key freight facilities in their region. The guide below shows the usage classes for each of the icons within the font set.</p>
+                            <b>The prefix for the Open Freight Icon set is 'dynico'</b>
+                            <div class="bs-dyna">
+                                <ul class="bs-dyna-list">
+                                    <li>
+                                      <span class="dynico dynico-parking"></span>
+                                      <span class="dyna-class">dynico dynico-parking</span>
+                                    </li>
+                                    <li>
+                                      <span class="dynico dynico-nhs"></span>
+                                      <span class="dyna-class">dynico dynico-nhs</span>
+                                    </li> 
+                                    <li>
+                                      <span class="dynico dynico-truck"></span>
+                                      <span class="dyna-class">dynico dynico-truck</span>
+                                    </li>
+                                    <li>
+                                      <span class="dynico dynico-bridge"></span>
+                                      <span class="dyna-class">dynico dynico-bridge</span>
+                                    </li>
+                                    <li>
+                                      <span class="dynico dynico-rail"></span>
+                                      <span class="dyna-class">dynico dynico-rail</span>
+                                    </li>
+                                  
+                                    <li>
+                                      <span class="dynico dynico-railyard"></span>
+                                      <span class="dyna-class">dynico dynico-railyard</span>
+                                    </li> 
+                                    <li>
+                                      <span class="dynico dynico-intermodal"></span>
+                                      <span class="dyna-class">dynico dynico-intermodal</span>
+                                    </li>
+                                    <li>
+                                      <span class="dynico dynico-railxing"></span>
+                                      <span class="dyna-class">dynico dynico-railxing</span>
+                                    </li>  
+                                    <li>
+                                      <span class="dynico dynico-river"></span>
+                                      <span class="dyna-class">dynico dynico-river</span>
+                                    </li>
+                                    <li>
+                                      <span class="dynico dynico-ship"></span>
+                                      <span class="dyna-class">dynico dynico-ship</span>
+                                    </li>
+                                    <li>
+                                      <span class="dynico dynico-anchor"></span>
+                                      <span class="dyna-class">dynico dynico-anchor</span>
+                                    </li>
+                                    <li>
+                                      <span class="dynico dynico-airport"></span>
+                                      <span class="dyna-class">dynico dynico-airport</span>
+                                    </li>
+                                    <li>
+                                      <span class="dynico dynico-heliport"></span>
+                                      <span class="dyna-class">dynico dynico-heliport</span>
+                                    </li>
+                                    
+                                    <li>
+                                      <span class="dynico dynico-center"></span>
+                                      <span class="dyna-class">dynico dynico-center</span>
+                                    </li>
+                                    <li>
+                                      <span class="dynico dynico-pipeline"></span>
+                                      <span class="dyna-class">dynico dynico-pipeline</span>
+                                    </li>
+                                    <li>
+                                      <span class="dynico dynico-community"></span>
+                                      <span class="dyna-class">dynico dynico-community</span>
+                                    </li>                             
+                                </ul>
+                              </div>
+                              <p>To utilize other icon fonts for icons you need to replace the "iconSet" option with the prefix of that icon font such as "fa" for Font Awesome or "glyphicon" for Glyphicons.</p>                         
+                            <div class="infoDivider"></div>
+                            <div class="btn-group">
+                                  <a class="btn btn-default" type="button" href="#docs-9">Previous</a>
+                                  <a class="btn btn-default" type="button" href="#docs-11">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ='docs-11' class='tab-pane fade in landing-content' style='color:#333333;'>
+                    <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2 class="doc-title">Documentation</h2>  
+                         <div class='col-md-12 content'>
+                            <h3>Dynamic Icon Marker Sets</h3>
+                            <p>The Dynamic Icon and Layer Control system includes several marker options to be used with the application framework. In addition, you will find an editable file in the "lib/core/dist/" folder of the project that can be used to create new color palettes using predesigned markers.</p>
+                            <h4>Open Freight Markers</h4>
+                            <b>markerSet: 'open-freight'</b>
+                            <ul style="list-style:none;">
+                                <li><b>mapMarker or legendMarker: 'circle-cm'</b><br/><img src="lib/core/dist/dynamic-icons/images/OpenFreightCM.png"/></li>
+                                <li><b>mapMarker or legendMarker: 'circle-md'</b><br/><img src="lib/core/dist/dynamic-icons/images/OpenFreightMD.png"/></li>
+                                <li><b>mapMarker or legendMarker: 'circle-sm'</b><br/><img src="lib/core/dist/dynamic-icons/images/OpenFreightSM.png"/></li>
+                            </ul>
+                            <h4>Dyna Markers</h4>
+                            <b>markerSet: 'dyna-mark'</b>
+                            <ul style="list-style:none;">
+                                <li><b>mapMarker or legendMarker: 'crc-cm'</b><br/><img src="lib/core/dist/dynamic-icons/images/DynaCM.png"/></li>
+                                <li><b>mapMarker or legendMarker: 'crc-md'</b><br/><img src="lib/core/dist/dynamic-icons/images/DynaMD.png"/></li>
+                                <li><b>mapMarker or legendMarker: 'crc-sm'</b><br/><img src="lib/core/dist/dynamic-icons/images/DynaSM.png"/></li>
+                            </ul>
+                                                    
+                            <div class="infoDivider"></div>
+                            <div class="btn-group">
+                                  <a class="btn btn-default" type="button" href="#docs-10">Previous</a>
+                                  <a class="btn btn-default disabled" type="button" >Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ='license' class='tab-pane fade in landing-content' style='color:#333333;'>
+                   <div class='center-block col-md-10 ' style='float:none;'>
+                         <h2>Licenses</h2> 
+                         <div class='col-md-12 content'>
+                            <h3>Open Freight App License</h3>
+                            <b>Open Freight App is licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a></b>
+                            <p>Copyright (c) 2014 Delaware Valley Regional Planning Commission</p>
+                            <p>Permission is hereby granted, free of charge, to any person obtaining a copy of
+                            this software and associated documentation files (the "Software"), to deal in
+                            the Software without restriction, including without limitation the rights to
+                            use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+                            the Software, and to permit persons to whom the Software is furnished to do so,
+                            subject to the following conditions:</p>
+                            <p><b>The above copyright notice and this permission notice shall be included in all
+                            copies or substantial portions of the Software.</b></p>
+                            <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+                            FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+                            COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+                            IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+                            CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                                <div class="well well-lg">
+                                        <h4>Additional Licenses</h4>
+                                                <p>The Open Freight Application includes elements of other software, their licenses are as follows:</p>
+                                                <h5>Awesome Markers</h5>
+                                                <p>Copyright (C) 2013 L. Voogdt</p>
+                                                <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+                                                <p><b>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</b></p>
+                                                <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                            </div>
+                        </div>
+                </div>  
+                </div>       
+        </div>
+        
+    <!--Map and Sidebar-->
+       <div class="row ocontent mapUI" id="container">
+            <div class="col-sm-4 col-lg-3" id="sidebar">
+				
+                <div class="tab-content" style="padding-top: 10px;">
+                        <!--ADD LAYER CONTROL GROUPS HERE -->
+                        <!---Layer Group 1-->
+                        <div class="panel-group legend">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a href="modal_1.html" data-toggle="modal" data-target="#modal_1"><div class="panelinfo group1_panel"></div></a>
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_1">
+                                        <div class="panellink group1_panel">
+                                            <span>Layer Group 1</span>
+                                        </div>
+                                    </a>
+                                    <a class="checked_all togglebox"></a>
+                                </div> 
+                                <div id="Group_1" class="panel-collapse collapse in">
+                                    <div class="panel-body legPanel">
+                                            <input type="checkbox" name="LayerCont" id="layer1" class="dyna layer" z-index="2" >
+                                            <input type="checkbox" name="LayerCont" id="layer2" class="dyna layer" z-index="3" >
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!---Layer Group 2-->
+                       <div class="panel-group legend">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <!--<a href="modal_2.html" data-toggle="modal" data-target="#modal_2" ><div class="panelinfo group2_panel"> </div></a>-->
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_2">
+                                        <div class="panellink group2_panel">
+                                            <span>Layer Group 2</span>
+                                        </div>
+                                    </a>
+                                    <a class="checked_all togglebox" ></a>
+                                </div> 
+                                <div id="Group_2" class="panel-collapse collapse in">
+                                    <div class="panel-body legPanel" style="padding: 0;" >
+                                            <input type="checkbox" name="LayerCont" id="layer3" class="dyna layer" z-index="3" >
+                                            <input type="checkbox" name="LayerCont" id="layer4" class="dyna layer" z-index="4" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div><!--Siderbar Close-->
+            <!---Map Pane -->
+            <div class="col-sm-8 col-lg-9 mapUI" id="mapDIV"  style="display:none;">
+                <div id="loading" style="display: block;">
+                    <div class="loading-indicator">
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-info" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--end Map and Sidebar-->
+        <!--Footer container-->
+        <div class="navbar-fixed-bottom ofooter">
+            <div style='height:34px;'>
+        		<!-- Map UI Footer -->
+               	<div id="MapFooter" class="mapUI" style="display:none;"> 
+                    <button id="toggle" type="button" class="footer_btn" data-toggle="tooltip" title="Toggle Sidebar" style="height: 34px; padding: 5px 10px; margin-right: 10px;width:36px;"><i id="toggleIcon" class="glyphicon glyphicon-chevron-left"></i></button>
+                    <!--Info window skeleton-->
+                    <div id='infobox_' class=''>
+                        <a><span id='togbtn' class='glyphicon glyphicon-minus hide InfoTgl'></span></a>
+                        <div id='iconography'></div>
+                        <div id='infoheader' class='ihholder'><p>Click feature to view details</p></div>
+                        <div class='infowrap'>
+                            <div id='info'></div>
+                            <div id='featureName'></div>
+                        </div>   
+                    </div> 
+                </div>
+                <!-- Landing Footer -->
+                <div id="LandingFooter" class="center landingUI">
+                   	<p>Open Freight App | Version 1.0.1</p>
+                </div>            
+            </div>
+        </div>  
+
+        <!--Mobile InfoWindow Modal-->
+        <div class="modal fade" id="mobileInfo_modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div id="mobileMdHeader" class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onClick='resetHighlight()'><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <div id="mobileheader"></div>
+              </div>
+              <div class='infowrap'>
+                <div id='mobileinfo'></div>
+                <div id='mobilefeatureName'></div>
+                </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal --> 
+
+
+
+        <!-- Layer Group 1 Modal Window -->
+        <div class="modal fade" id="modal_1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Group 1 Modal Sample</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter any HTML content here to provide additional information to users.</p>
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!-- Layer Group 2 Modal Window-->
+        <div class="modal fade" id="modal_2"></div>
+        
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+        <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="lib/core/dyna-icons.js"></script>
+        <script type="text/javascript" src="lib/assets/typeahead.min.js"></script>
+        <script type="text/javascript" src="lib/assets/numeral.min.js"></script>       
+        <script type="text/javascript" src="lib/actions.js"></script><!--customized mapping functions to highlight map elements -->
+        <script type="text/javascript" src="lib/map.js"></script><!--customized mapping functions to load data -->
+        <script type="text/javascript" src="lib/core/core.js"></script><!--core application functions -->
+        
+        <!--remove for distribution-->
+        <script type="text/javascript" src="lib/assets/highlight.pack.js"></script>
+
+
+
+
+        <script type="text/javascript">
+           $('#AddLayer a').click(function (e) {
+			  e.preventDefault()
+			  $(this).tab('show')
+			})
+           
+         hljs.initHighlightingOnLoad();
+         $('.doc-title').after('<ul class="nav nav-pills docMenu"><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu <span class="caret"></span>\
+                            </a>\
+                            <ul class="dropdown-menu" role="menu">\
+                                <li role="presentation" class="dropdown-header">Overview</li>\
+                                <li><a href="#toc">Table of Contents</a></li>\
+                                <li><a href="#docs">Introduction</a></li>\
+                                <li><a href="#docs-1">File Structure</a></li>\
+                                <li role="presentation" class="dropdown-header">Getting Started</li>\
+                                <li><a href="#docs-2">Preparing Data</a></li>\
+                                <li role="presentation" class="dropdown-header">Customizing Map Elements</li>\
+                                <li><a href="#docs-3">Creating a Map Instance</a></li>\
+                                <li><a href="#docs-4">Creating Custom Map Layers</a></li>\
+                                <li><a href="#docs-5">Add Layer Data</a></li>\
+                                <li><a href="#docs-6">Add Typeahead Search Functionality for Layers</a></li>\
+                                <li><a href="#docs-7">Create Highlight Actions for Layer(s)</a></li>\
+                                <li><a href="#docs-8">Add Layers to Sidebar</a></li>\
+                                <li role="presentation" class="dropdown-header">Dynamic Icon Markers</li>\
+                                <li><a href="#docs-9">Dynamic Icon Markers and Layer Control</a></li>\
+                                <li><a href="#docs-10">Open Freight Icon Set</a></li>\
+                                <li><a href="#docs-11">Dynamic Icon Marker Sets</a></li>\
+                            </ul></li></ul>');
+           
+        </script>
+
+        
+        
+    </body>
+</html>

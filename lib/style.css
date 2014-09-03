@@ -1,0 +1,61 @@
+html,body,#sidebar,#container {
+    height: 100%;
+    margin: 0;
+}
+body {
+    padding-top: 50px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    overflow-y: hidden;
+}
+p {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #6689BC;
+}
+label {
+    font-weight: 400;
+}
+
+
+/*--------------------------------------------------------*/
+/*--------  UI Element Color Styles  ---------------------*/
+/*------- Change to alter color theme  -------------------*/
+/*--------------------------------------------------------*/
+body, .landing, #sidebar {
+    background-color: #efefef !important;
+}
+.infowrap, .ofooter, .oheader {
+    background-color: #f5f5f5 !important;
+}
+.infowrap, #infoheader, .footer_btn, .footernav, .ofooter, .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form, .navbar-inverse {
+    border-color: #ddd;
+}
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-nav>li>a:hover, .footer_btn:hover {
+    background-color: #DDD;
+    border-color:#DDD;
+}
+.footer_btn, #infoheader, .navbar-inverse .navbar-toggle, .navbar-inverse .navbar-nav>.open>a,.navbar-inverse .navbar-nav>.open>a:hover,.navbar-inverse .navbar-nav>.open>a:focus, .navbar-nav>li>a, .navbar-nav>li>.dropdown  {
+  background-color: #E9E9E9;  
+}
+.navbar-inverse .navbar-toggle, .navbar-nav > li > .dropdown-menu {
+    border-color:#E9E9E9;
+}
+#indactorInfo .nav-tabs>li.active>a{
+    border-bottom-color: #6689BC !important;
+}
+a, .navbar-inverse .navbar-nav>li>a, .footer_btn, .chkicon, .legend-check i {
+    color: #6689BC !important;
+}
+.navbar-inverse .navbar-toggle .icon-bar{
+    background-color: #6689BC !important;
+}
+a:hover, .navbar-inverse .navbar-nav>li>a:hover, .footer_btn:hover , .legend-check i:hover{
+    color: #5876A2 !important;
+}
+.input-group #searchbox.form-control {
+    float: right;
+}
