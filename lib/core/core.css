@@ -108,6 +108,9 @@
 .panel-heading {
     padding: 0 !important;
 }
+.panel-group{
+    margin-bottom:5px!important;
+}
 .panellink {
     margin-left: 15px;
     margin-right: 35px;
