@@ -1,0 +1,900 @@
+/*--------------------------------------------------------*/
+/*--------------------------------------------------------*/
+/*      Open Freight Application Styles 
+/*      Version 1.0
+/*      Updated: September 3, 2014
+
+/*--------------------------------------------------------*/
+/*--------  Navigation Bar Styles  -----------------------*/
+/*--------------------------------------------------------*/
+.navbar .navbar-brand {
+    font-weight: 700;
+    font-size: 22px;
+    color: #FFF;
+    white-space: nowrap;
+    padding: 0 !important;
+}
+.logo-container {
+    display: inline-block;
+    padding: 0px 30px 0px 10px;
+}
+.navbar-inverse .navbar-nav>li>a {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.navbar-nav>li>a, .navbar-nav>li>.dropdown {
+    margin: 6px 4px;
+    padding: 9px 10px;
+    border-radius: 5px;
+}
+.navbar-nav > li > .dropdown-menu {
+    margin-top: -7px;
+    margin-left:4px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.navbar-inverse .navbar-nav>.open>a,.navbar-inverse .navbar-nav>.open>a:hover,.navbar-inverse .navbar-nav>.open>a:focus {
+    color: #fff;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.navbar-collapse.in {
+    overflow-y: hidden;
+}
+
+
+/*--------------------------------------------------------*/
+/*--------  Typeahead Search Styles  ---------------------*/
+/*--------------------------------------------------------*/
+.typeahead {
+    background-color: #FFF;
+}
+/*.search-container {
+    width: 280px;
+}*/
+.tt-dropdown-menu {
+    background-color: #FFF;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    margin-top: 4px;
+    padding: 4px 0;
+    width: 100%;
+    max-height: 300px;
+    overflow: auto;
+}
+.tt-suggestion {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 3px 10px;
+}
+.tt-suggestion.tt-cursor {
+    background-color: #5876A2;
+    color: #FFF;
+    cursor: pointer;
+}
+.tt-suggestion p {
+    margin: 0;
+}
+.tt-suggestion + .tt-suggestion {
+    border-top: 1px solid #ccc;
+}
+.typeahead-header {
+    margin: 0 5px 5px;
+    padding: 3px 0;
+    border-bottom: 2px solid #333;
+}
+.has-feedback .form-control-feedback {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+}
+
+
+/*--------------------------------------------------------*/
+/*--------  Side Bar/Legend Styles  ----------------------*/
+/*--------------------------------------------------------*/
+#sidebar {
+    padding: 10px;
+    overflow: auto;
+}
+.panel-heading a:hover {
+    text-decoration: none;
+}
+.panel-heading {
+    padding: 0 !important;
+}
+.panel-group{
+    margin-bottom:5px!important;
+}
+.panellink {
+    margin-left: 15px;
+    margin-right: 35px;
+    padding: 3px 15px 4px 0;
+    font-weight: 700;
+    font-size: 1.2em;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+    filter: alpha(opacity=70);
+    -moz-opacity: 0.7;
+    -khtml-opacity: 0.7;
+    opacity: 0.7;
+}
+.panellink:hover {
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1;
+}
+.legicon, .panelinfo {
+    width: 35px;
+    height: 31px;
+    border-right: 1px solid rgb(228, 228, 228);
+    text-align: center;
+    line-height: 31px;
+    float: left;
+    font-weight: bold;
+    font-size: 1.2em;
+    opacity: 0.7;
+}
+.InfoTgl{cursor: pointer;}
+.chkicon {
+    cursor: pointer;
+    width: 32px;
+    height: 31px;
+    border-left: 1px solid rgb(228, 228, 228);
+    padding-left: 8px;
+    line-height: 31px;
+    float: left;
+    font-weight: bold;
+    font-size: 1.2em;
+    opacity: 0.7;
+}
+.togglebox {
+    width: 32px;
+    height: 31px;
+    /*margin-top: -31px;*/
+    float: right;
+}
+.checkbox {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding: 7px 0 7px 20px;
+    border-bottom: 1px solid #ddd;
+}
+.checkbox:hover {
+    background-color: #f8f8f8;
+}
+.legend-icon {
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+.legend-icon i{
+    color:#fff!important;
+}
+.togglebox input[type=checkbox] {
+    display: block;
+}
+input[type=checkbox] {
+    display: none;
+}
+.checkbox input[type=checkbox] {
+    margin-top: 8px;
+}
+.checkbox label {
+    padding-left: 38px !important;
+    background-size: 28px !important;
+    height: 29px !important;
+    display: block !important;
+    padding-top: 4px !important;
+}
+input[type=checkbox] + label, input[type=checkbox] + label > div {
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+input[type=checkbox]:checked + label, input[type=checkbox]:checked + label > div, input[type=checkbox] + label.dynacheck, input[type=checkbox] + label.dynacheck > div{
+    opacity: 1.0!important;
+    filter: alpha(opacity=100)!important;
+}
+
+
+
+
+/*---------------------------------------*/
+/*---  Info Window Styles and Icons  ----*/
+/*---------------------------------------*/
+/*-- Preset Info Window Styles --*/
+/*-- Advanced Edit Only -------*/
+#infobox_ {
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    height: 34px;
+    width: 325px;
+    text-align: left;
+    -webkit-transition-duration: .3s;
+    -moz-transition-duration: .3s;
+    transition-duration: .3s;
+    -o-transition-duration: .3s;
+}
+#infobox_.active {
+    bottom: 250px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+}
+#infobox_.active #infoheader {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+}
+.infowrap {
+    height: 390px;
+    border-width: 1px;
+    border-left-style: solid;
+    border-right-style: solid;
+}
+#info{padding:10px;}
+#infoheader {
+    color: #555;
+    border-style: solid;
+    border-width: 1px;
+    padding: 8px 45px;
+}
+#infoheader p {
+    margin: 0;
+    font-weight: 700;
+    font-size: 10pt;
+}
+#iconography {
+    float: left;
+    height: 100%;
+    margin: 1px 10px 3px 3px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+}
+#togbtn {
+    float: right;
+    margin: 2px 10px 0 0;
+    padding: 10px;
+    color: #FFF;
+    text-decoration: none;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+    filter: alpha(opacity=60);
+    -moz-opacity: 0.6;
+    -khtml-opacity: 0.6;
+    opacity: 0.6;
+}
+#togbtn:hover {
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1;
+    color: #FFF;
+    text-decoration: none;
+}
+#featureName {
+    height: 45px;
+}
+#featureName p {
+    padding: 8px 0 5px 20px;
+}
+.ihholder {
+    background-color: #999;
+}
+.icon {
+    width: 35px;
+}
+.datafield {
+    background-color: #F1F1F1;
+    border: 1px solid #d1d1d1;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    padding-left: 6px;
+    font-size: 1.1em;
+}
+.labelfield {
+    font-size: .75em;
+    color: #9B9B9B;
+    margin-bottom: 4px;
+}
+.infoDivider {
+    margin: 0 0 10px;
+    border-bottom: 1px solid #ccc;
+    padding: 3px 0;
+}
+.two_third {
+    width: 66.76%;
+}
+#indactorInfo .nav-tabs>li.active>a {
+    border-bottom-width: 2px !important;
+    border-bottom-style: solid !important;
+
+}
+#indactorInfo .nav>li>a {
+    padding: 4px 15px !important;
+}
+#indicator table {
+    font-size: 1em;
+}
+#indicator .table tbody>tr>td {
+    line-height: 0.8;
+}
+.table {
+    margin-bottom: 0;
+}
+.source {
+    text-align: right;
+    width: 100%;
+}
+
+
+/*-----------------------------------------------*/
+/*--------------  Map  UI Styles   --------------*/
+/*-----------------------------------------------*/
+#mapDIV {
+    height: 100%;
+    margin: 0;
+    -webkit-box-shadow: 0 -1px 10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 -1px 10px rgba(0,0,0,0.5);
+    box-shadow: 0 -1px 10px rgba(0,0,0,0.5);
+}
+.progress-bar-info {
+    background-color: #EFA06A !important;
+}
+.progress-bar.animate {
+   width: 100%;
+}
+
+
+/*-----------------------------------------------*/
+/*-------------  Other UI Styles   --------------*/
+/*-----------------------------------------------*/
+.tooltip {
+    z-index: 3000;
+}
+.tooltip-inner {
+    background-color: #212C3C;
+    color: #fff;
+}
+.tooltip.top .tooltip-arrow {
+    border-top-color: #212C3C;
+}
+
+.tooltip.left .tooltip-arrow {
+    border-left-color: #212C3C;
+}
+
+.tooltip.bottom .tooltip-arrow {
+    border-bottom-color: #212C3C;
+}
+
+.tooltip.right .tooltip-arrow {
+    border-right-color: #212C3C;
+}
+.landing {
+    z-index: 1029;
+    width: 100%;
+    overflow-y: auto;
+    display: block;
+    bottom: 34px;
+    position: absolute;
+    top: 50px;
+    padding-bottom: 20px;
+}
+.landtab-content > .tab-pane {
+    display: none;
+}
+.modal_icon {
+    float: left;
+    margin-right: 10px;
+    width: 40px;
+}
+.modal-header {
+    padding: 10px 15px 5px !important;
+    background-color: #6689BC !important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    color: #FFF;
+}
+.modal-header .close {
+    margin-top: 0 !important;
+}
+.modal-body .nav>li>a {
+    padding: 10px 8px !important;
+}
+.ocontent {
+    padding-bottom: 34px !important;
+}
+
+
+/*-----------------------------------------------*/
+/*--------------   Footer Styles   --------------*/
+/*-----------------------------------------------*/
+.ofooter {
+    height: 34px;
+    border-width: 1px;
+    border-top-style: solid;
+}
+.footernav {
+    border-width: 1px;
+    border-right-style: solid;
+    margin-right: 345px;
+    text-align: right;
+}
+.footer_btn {
+    border-style: solid;
+    border-width: 1px;
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    outline: none;
+}
+
+
+/*-----------------------------------------------*/
+/*------------   Other Page Styles   ------------*/
+/*-----------------------------------------------*/
+.white {
+    color: #fff !important;
+}
+.center {
+    text-align: center;
+}
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+.hide {
+    display: none;
+}
+.item {
+    width: 150px;
+}
+.last {
+    border-bottom-width: 0 !important;
+}
+
+.circle-md.legend-icon, .circle-cm.legend-icon {
+    left: 16px !important;
+    top: 6px !important;
+}
+.legend-check{
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+    margin-right: 4px;
+    left: 26px;
+    top: 10px;
+    font-size: 18px;
+}
+.panel-heading > a{
+    display: inline;
+}
+
+.panel-heading> a.accordion-toggle{
+    display: inline-block;   
+}
+.legPanel {
+    padding:0px;
+}
+
+/*-----------------------------------------------*/
+/*------------   Dynamic Icons Styles  ----------*/
+/*-----------------------------------------------*/
+
+
+/*
+Open Freight Application Dynamic Icon Set
+Author: Michael Ruane, DVRPC
+Version: 1.0.0
+
+//////////////////////////////////////////
+Build based  on Awesome Marker 
+-----------------------------------------
+Author: L. Voogdt
+License: MIT
+Version: 1.0
+*/
+
+/* Marker setup */
+.awesome-marker {
+  background: url('images/markers-soft.png') no-repeat 0 0;
+  width: 35px;
+  height: 46px;
+  position:absolute;
+  left:0;
+  top:0;
+  display: block;
+  text-align: center;
+}
+
+.circle-md {
+  background: url('images/open-freight_crc-md.png') no-repeat 0 0;
+  width: 32px;
+  height: 32px;
+  position:absolute;
+  left:0;
+  top:0;
+  display: block;
+  text-align: center;
+}
+.circle-sm {
+  background: url('images/open-freight_crc-sm.png') no-repeat 0 0;
+  width: 28px;
+  height: 28px;
+  position:absolute;
+  left:0;
+  top:0;
+  display: block;
+  text-align: center;
+}
+.circle-cm {
+  background: url('images/open-freight_cm.png') no-repeat 0 0;
+  width: 28px;
+  height: 36px;
+  position:absolute;
+  left:0;
+  top:0;
+  display: block;
+  text-align: center;
+}
+
+.crc-md {
+  background: url('images/dyna_crc-md.png') no-repeat 0 0;
+  width: 32px;
+  height: 32px;
+  position:absolute;
+  left:0;
+  top:0;
+  display: block;
+  text-align: center;
+}
+.crc-sm {
+  background: url('images/dyna_crc-sm.png') no-repeat 0 0;
+  width: 28px;
+  height: 28px;
+  position:absolute;
+  left:0;
+  top:0;
+  display: block;
+  text-align: center;
+}
+.crc-cm {
+  background: url('images/dyna_crc-cm.png') no-repeat 0 0;
+  width: 28px;
+  height: 36px;
+  position:absolute;
+  left:0;
+  top:0;
+  display: block;
+  text-align: center;
+}
+.awesome-marker-shadow {
+  background: url('images/markers-shadow.png') no-repeat 0 0;
+  width: 36px;
+  height: 16px;
+}
+.circle-md-shadow {
+  background: url('images/circle-md-shadow.png') no-repeat 0 0;
+  width: 34px;
+  height: 34px;
+}
+.circle-sm-shadow {
+  background: url('images/circle-sm-shadow.png') no-repeat 0 0;
+  width: 34px;
+  height: 34px;
+}
+.circle-cm-shadow {
+  background: url('images/markers-shadow.png') no-repeat 0 0;
+  width: 36px;
+  height: 16px;
+}
+/* Retina displays */
+@media (min--moz-device-pixel-ratio: 1.5),(-o-min-device-pixel-ratio: 3/2),
+(-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5),(min-resolution: 1.5dppx) {
+ .awesome-marker {
+  background-image: url('images/markers-soft@2x.png');
+  background-size: 720px 46px;
+ }
+ .awesome-marker-shadow {
+  background-image: url('images/markers-shadow@2x.png');
+  background-size: 35px 16px;
+ }
+}
+
+.awesome-marker i {
+  color: #333;
+  margin-top: 6px;
+  display: inline-block;
+  font-size: 23px;
+}
+
+.circle-md  i {
+  color: #333;
+  margin-top: 5px;
+  display: inline-block;
+  font-size: 24px;
+
+}
+.circle-sm  i {
+  color: #333;
+  margin-top: 4px;
+  display: inline-block;
+  font-size: 20px;
+
+}
+.circle-cm  i {
+  color: #333;
+  margin-top: 4px;
+  display: inline-block;
+  font-size: 20px;
+
+}
+
+.circle-md  .icon-white, .circle-sm  .icon-white, .circle-cm .icon-white{
+  color: #fff;
+}
+
+.awesome-marker .icon-white {
+  color: #fff;
+}
+
+/* Colors */
+.open-freight-icon-purple {
+  background-position: -1px 0;
+}
+.open-freight-icon-gold {
+  background-position: -35px 0;
+}
+.open-freight-icon-blue {
+  background-position: -69px 0;
+}
+.open-freight-icon-yellow {
+  background-position: -103px 0;
+}
+.open-freight-icon-red {
+  background-position: -137px 0;
+}
+.open-freight-icon-orange {
+  background-position: -171px 0;
+}
+.open-freight-icon-peach {
+  background-position: -205px 0;
+}
+.open-freight-icon-teal {
+  background-position: -239px 0;
+}
+.open-freight-icon-ltgreen {
+  background-position: -273px 0;
+}
+.open-freight-icon-green {
+  background-position: -307px 0;
+}
+.open-freight-icon-forest {
+  background-position: -341px 0;
+}
+
+.awesome-marker-icon-red {
+  background-position: 0 0;
+}
+
+.awesome-marker-icon-darkred {
+  background-position: -180px 0;
+}
+
+.awesome-marker-icon-lightred {
+  background-position: -360px 0;
+}
+
+.awesome-marker-icon-orange {
+  background-position: -36px 0;
+}
+
+.awesome-marker-icon-beige {
+  background-position: -396px 0;
+}
+
+.awesome-marker-icon-green {
+  background-position: -72px 0;
+}
+
+.awesome-marker-icon-darkgreen {
+  background-position: -252px 0;
+}
+
+.awesome-marker-icon-lightgreen {
+  background-position: -432px 0;
+}
+
+.awesome-marker-icon-blue {
+  background-position: -108px 0;
+}
+
+.awesome-marker-icon-darkblue {
+  background-position: -216px 0;
+}
+
+.awesome-marker-icon-lightblue {
+  background-position: -468px 0;
+}
+
+.awesome-marker-icon-purple {
+  background-position: -144px 0;
+}
+
+.awesome-marker-icon-darkpurple {
+  background-position: -288px 0;
+}
+
+.awesome-marker-icon-pink {
+  background-position: -504px 0;
+}
+
+.awesome-marker-icon-cadetblue {
+  background-position: -324px 0;
+}
+
+.awesome-marker-icon-white {
+  background-position: -574px 0;
+}
+
+.awesome-marker-icon-gray {
+  background-position: -648px 0;
+}
+
+.awesome-marker-icon-lightgray {
+  background-position: -612px 0;
+}
+
+.awesome-marker-icon-black {
+  background-position: -682px 0;
+}
+
+/*
+Legend and Info Window Support
+*/
+.circle-md.legend-icon, .circle-cm.legend-icon, .circle-sm.legend-icon {
+    left: 16px !important;
+}
+.circle-md.legend-icon {
+    top: 6px !important;
+}
+.circle-md.legend-icon  i {
+  color: #333;
+  margin-top: 5px;
+  display: inline-block;
+  font-size: 22px;
+
+}
+.circle-cm.legend-icon{
+    top: 5px !important;
+}
+.circle-sm.legend-icon{
+    top: 8px !important;
+}
+
+#iconography.dynico {
+    font-size: 26px;
+    color: #fff;
+    padding: 5px;
+}
+.markerBox.cm{
+    width: 38px;
+    height: 44px;
+    border-style: solid;
+    border-width: 4px;
+    z-index: -200;
+    margin-top: -32px;
+    margin-left: -4px;
+}
+.markerBox.sm{
+    width: 36px;
+    height: 36px;
+    border-style: solid;
+    border-width: 4px;
+    z-index: -200;
+    margin-top: -31px;
+    margin-left: -3px;
+}
+.markerBox.md{
+    width: 40px;
+    height: 40px;
+    border-style: solid;
+    border-width: 4px;
+    z-index: -200;
+    margin-top: -35px;
+    margin-left: -3px;
+}
+#selectedIcon{
+    z-index:2000!important;
+}
+.purple, .teal, .blue, .gold,.yellow,.red,.orange,.peach,.ltgreen{
+  color:#fff!important;
+}
+.purple{
+  background-color:#884C9E!important;
+}
+.teal{
+ background-color:#54C4C8!important;
+}
+.blue{
+ background-color:#1C75BC!important;
+}
+.gold{
+ background-color:#FBA919!important;
+}
+.yellow{
+ background-color:#EFD315!important;
+}
+.red{
+ background-color:#C1332B!important;
+}
+.orange{
+ background-color:#F26122!important;
+}
+.peach{
+ background-color:#F9AB90!important;
+}
+.ltgreen{
+ background-color:#B0D39B!important;
+}
+/* Dyna marker Set */
+.dyna-mark-icon-purple {
+  background-position: -1px 0;
+}
+.dyna-mark-icon-orange {
+  background-position: -35px 0;
+}
+.dyna-mark-icon-blue {
+  background-position: -69px 0;
+}
+.dyna-mark-icon-green {
+  background-position: -103px 0;
+}
+.dyna-mark-icon-red {
+  background-position: -137px 0;
+}
+.dyna-mark-icon-ltred {
+  background-position: -171px 0;
+}
+.dyna-mark-icon-pink {
+  background-position: -205px 0;
+}
+.dyna-mark-icon-ltblue {
+  background-position: -239px 0;
+}
+.dyna-mark-icon-ltgreen {
+  background-position: -273px 0;
+}
+.dyna-mark-icon-grey {
+  background-position: -307px 0;
+}
+.dyna-mark-icon-black {
+  background-position: -341px 0;
+}

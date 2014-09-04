@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="description" content="version 1.0.1">
+        <meta name="author" content="Michael Ruane, DVRPC">     
+        <title>Open Freight App 1.0</title>
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" rel="stylesheet" type="text/css">
+        <link href="lib/assets/typeahead.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="lib/core/dyna.css"><!--declare stylesheet for desire icon font set  -->
+        <link rel="stylesheet" href="lib/core/core.css">
+        <link rel="stylesheet" href="lib/style.css" />
+        <style>
+        #loading {
+                position: absolute;
+                width: 220px;
+                height: 19px;
+                top: 50%;
+                left: 50%;
+                margin: -10px 0 0 -110px;
+                z-index: 1028;
+            }
+        .omodal{
+            position: absolute;
+            width: 220px;
+            height: 19px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -110px;
+            z-index: 1028;
+            display: none;
+            overflow: hidden;
+            outline: 0px none;
+        }
+        @media screen and (min-width: 768px) {
+                .modal-dialog {
+                    width:730px!important;
+                }
+            }
+            @media (max-width: 1360px){
+                .search-container{
+                    width:250px!important;
+                }
+            }
+            @media (max-width: 1270px) {
+                .navbar .navbar-brand {
+                    font-size: 18px;
+                    float: left;
+                }
+                .leaflet-control-attribution {
+                    display: none;
+                }
+                
+            }
+            @media (max-width: 1200px) {
+               .search-container {
+                    width: 200px!important;
+                }
+            }
+            @media (max-width: 960px) {
+               .search-container {
+                    display :none!important;
+                }
+
+            }
+            @media (max-width: 768px){
+                .search-container {
+                    display: table!important;
+                    width: 100%!important;
+                }
+                .logo-container{
+                    padding:0px;
+                }
+                .navbar-nav .open .dropdown-menu{
+                    background-color:#fff;
+                }
+                #infobox_ {
+                    right:10px;
+                }
+            }
+            @media (max-width: 376px){
+                .infowrap{
+                    padding:20px;
+                    height:auto;
+                }
+                #infobox_ {
+                    display:none;
+                }
+            }
+            /* Print Handling */
+            @media print {
+                .navbar, .toggle, #sidebar {
+                    display: none !important;
+                }
+            }
+        </style> 
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top oheader">
+        <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <div class="navbar-brand">
+                <div class="logo-container"><img src="lib/images/header_logo.png" height="50" /></div>
+            </div>
+        </div>
+        <div id="navbar-links" class="navbar-collapse collapse">
+            <form id="nav_search" class="navbar-form navbar-right mapUI" style="display:none;">
+                    <div class="input-group search-container">
+                        <input id="searchbox" type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                    </div>
+            </form>
+            <ul id="landing" class="nav navbar-nav">
+                <li><a href="#home" class="landingLink" data-tab="home" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="glyphicon glyphicon-home"></i>&nbsp;&nbsp;Home</a></li>
+                <li class="dropdown">
+                        <a id="AboutDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-question-sign"></i>&nbsp;&nbsp;Dropdown <b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#page1" class="landingLink" data-tab="PhillyFreightFinder" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;&nbsp;Page 1</a></li>
+                                <li><a href="#page2" class="landingLink" data-tab="data" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;&nbsp;Page 2</a></li>
+                            </ul>
+                </li>
+                <li id="maplink" class="landingUI"><a href="#map" data-tab="map" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;&nbsp;View Map</a></li>
+            </ul>
+           
+        </div><!--/.navbar-collapse -->
+    </div>
+    <!--landing pages-->
+        <div id="oFFlanding" class="landing fade in landtab-content landingUI">
+            
+            <!--home tab-->
+                <div id="home" class="tab-pane active in landing-content" style="color:#333333;">
+                    <div class="center-block col-md-10" style="float:none;">
+                        <h3>Open Freight App an Open-source data and mapping template</h3> 
+                    </div>
+                    <div class="center-block col-md-10" style="float:none;">
+                        <div class="col-md-7 content">
+                                <p>Open Freight App is a project by the Delaware Valley Regional Planning Commission (DVRPC) to share with regional and national transportation planning partners the framework that is the basis for the <a href="http://www.dvrpc.org/webmaps/phillyfreightfinder/" target="_blank">PhillyFreightFinder</a> web mapping and data application. Through this effort, DVRPC hopes that county planning agencies, metropolitan planning organizations and state departments of transportation, and economic development agencies can leverage this framework to further their efforts in making freight transportation data public. By utilizing the Open Freight App framework, rather than building from scratch, planning agencies can focus their time and resources on the development of data sets that can serve to improve the access to information on freight facilities and their role in economic development and transportation across the country. Open Freight App would serve as a self-hosted solution to offer these datasets to other planners, economic developers, public officials, decision-makers and the general public.</p>
+
+                        </div> 
+                        <div class="col-md-5">     
+                        </div>
+                    </div>
+                </div>
+                <!--Page Samples tab-->
+                <div id="page1" class="tab-pane landing-content" style="color:#333333;">
+                    <div class="center-block col-md-10 " style="float:none;">
+                        <h3>Open Freight App Project</h3> 
+                        <div class="col-md-6 col-lg-6 content">
+                                <p><a href="http://www.dvrpc.org/webmaps/phillyfreightfinder/" target="_blank">PhillyFreightFinder</a> is built using the Leaflet JavaScript mapping library, a lightweight mobile friendly framework that provides developers an open flexible environment for the development of web maps and applications. The web application leverages the Bootstrap 3.0 front end framework for styling and interface. The application is the core of DVRPC's freight data program and provide partners with a way of accessing and exploring local freight data.</p>
+                                <p>The Open Freight App Project is led by the Office of Freight and Aviation planning as an effort to provide the tool to other agencies for replicaiton. In addition, the open project can be further improved through feedback an collaboration as other begin to implement and explore new uses for the product. The current Open Freight Applicaiton build is intended to streamline the app development process by creating built in shortcuts. As this product is a "live" project updates will be provided periodically.</p>
+                        </div> 
+                        <div class="col-md-6 col-lg-6 content">
+                                <div class="well well-lg">
+                                    <b>For more information about the project and code please contact the proejct manager:</b>
+                                    <p>Michael Ruane<br />Transportation Planner<br />Office of Freight and Aviation Planning<br />p: 215.238.2888<br />c: 215.588.8226<br />e: <a href="mailto:mruane@dvrpc.org">mruane@dvrpc.org</a>
+                                        <br />
+                                        <p>This is a product of:</p>
+                                        <b>Delaware Valley Regional Planning Commission</b><br />190 N Independence Mall West<br />8th Floor<br />Philadelphia, PA 19106-1520<br /><a href="http://www.dvrpc.org">www.dvrpc.org</a>
+                                </div>
+                        </div> 
+                    </div>
+                </div>
+                <div id="page2" class="tab-pane fade in landing-content" style="color:#333333;">
+                   <div class="center-block col-md-10 " style="float:none;">
+                         <h2>Licenses</h2> 
+                         <div class="col-md-12 content">
+                            <h3>Open Freight App License</h3>
+                            <b>Open Freight App is licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a></b>
+                            <p>Copyright (c) 2014 Delaware Valley Regional Planning Commission</p>
+                            <p>Permission is hereby granted, free of charge, to any person obtaining a copy of
+                            this software and associated documentation files (the "Software"), to deal in
+                            the Software without restriction, including without limitation the rights to
+                            use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+                            the Software, and to permit persons to whom the Software is furnished to do so,
+                            subject to the following conditions:</p>
+                            <p><b>The above copyright notice and this permission notice shall be included in all
+                            copies or substantial portions of the Software.</b></p>
+                            <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+                            FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+                            COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+                            IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+                            CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                                <div class="well well-lg">
+                                        <h4>Additional Licenses</h4>
+                                                <p>The Open Freight Application includes elements of other software, their licenses are as follows:</p>
+                                                <h5>Awesome Markers</h5>
+                                                <p>Copyright (C) 2013 L. Voogdt</p>
+                                                <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+                                                <p><b>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</b></p>
+                                                <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                            </div>
+                        </div>
+                </div>  
+                </div>       
+        </div>
+        
+    <!--Map and Sidebar-->
+       <div class="row ocontent mapUI" id="container">
+            <div class="col-sm-4 col-lg-3" id="sidebar">
+				
+                <div class="tab-content" style="padding-top: 10px;">
+                        <!--ADD LAYER CONTROL GROUPS HERE -->
+                        <!---Layer Group 1-->
+                        <div class="panel-group legend">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a href="modal_1.html" data-toggle="modal" data-target="#modal_1"><div class="panelinfo group1_panel"></div></a>
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_1">
+                                        <div class="panellink group1_panel">
+                                            <span>Layer Group 1</span>
+                                        </div>
+                                    </a>
+                                    <a class="checked_all togglebox"></a>
+                                </div> 
+                                <div id="Group_1" class="panel-collapse collapse in">
+                                    <div class="panel-body legPanel">
+                                            <input type="checkbox" name="LayerCont" id="layer1" class="dyna layer" z-index="2">
+                                            <input type="checkbox" name="LayerCont" id="layer2" class="dyna layer" z-index="3">  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!---Layer Group 2-->
+                       <div class="panel-group legend">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <!--<a href="modal_2.html" data-toggle="modal" data-target="#modal_2" ><div class="panelinfo group2_panel"> </div></a>-->
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_2">
+                                        <div class="panellink group2_panel">
+                                            <span>Layer Group 2</span>
+                                        </div>
+                                    </a>
+                                    <a class="checked_all togglebox"></a>
+                                </div> 
+                                <div id="Group_2" class="panel-collapse collapse in">
+                                    <div class="panel-body legPanel" style="padding: 0;">
+                                            <input type="checkbox" name="LayerCont" id="layer3" class="dyna layer" z-index="3">
+                                            <input type="checkbox" name="LayerCont" id="layer4" class="dyna layer" z-index="4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div><!--Siderbar Close-->
+            <!---Map Pane -->
+            <div class="col-sm-8 col-lg-9 mapUI" id="mapDIV" style="display:none;">
+                <div id="loading" style="display: block;">
+                    <div class="loading-indicator">
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-info" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--end Map and Sidebar-->
+        <!--Footer container-->
+        <div class="navbar-fixed-bottom ofooter">
+            <div style="height:34px;">
+        		<!-- Map UI Footer -->
+               	<div id="MapFooter" class="mapUI" style="display:none;"> 
+                    <button id="toggle" type="button" class="footer_btn" data-toggle="tooltip" title="Toggle Sidebar" style="height: 34px; padding: 5px 10px; margin-right: 10px;width:36px;"><i id="toggleIcon" class="glyphicon glyphicon-chevron-left"></i></button>
+                    <!--Info window skeleton-->
+                    <div id="infobox_" class="">
+                        <a><span id="togbtn" class="glyphicon glyphicon-minus hide InfoTgl"></span></a>
+                        <div id="iconography"></div>
+                        <div id="infoheader" class="ihholder"><p>Click feature to view details</p></div>
+                        <div class="infowrap">
+                            <div id="info"></div>
+                            <div id="featureName"></div>
+                        </div>   
+                    </div> 
+                </div>
+                <!-- Landing Footer -->
+                <div id="LandingFooter" class="center landingUI">
+                   	<p>Open Freight App | Version 1.0.1</p>
+                </div>            
+            </div>
+        </div>  
+
+        <!--Mobile InfoWindow Modal-->
+        <div class="modal fade" id="mobileInfo_modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div id="mobileMdHeader" class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onClick="resetHighlight()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <div id="mobileheader"></div>
+              </div>
+              <div class="infowrap">
+                <div id="mobileinfo"></div>
+                <div id="mobilefeatureName"></div>
+                </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal --> 
+        
+        <!-- Layer Group 1 Modal Window -->
+        <div class="modal fade" id="modal_1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Group 1 Modal Sample</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter any HTML content here to provide additional information to users.</p>
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+        <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="lib/core/dyna-icons.js"></script>
+        <script type="text/javascript" src="lib/assets/typeahead.min.js"></script>
+        <script type="text/javascript" src="lib/assets/numeral.min.js"></script>       
+        <script type="text/javascript" src="lib/actions.js"></script><!--customized mapping functions to highlight map elements -->
+        <script type="text/javascript" src="lib/map.js"></script><!--customized mapping functions to load data -->
+        <script type="text/javascript" src="lib/core/core.js"></script><!--core application functions -->
+    </body>
+</html>
