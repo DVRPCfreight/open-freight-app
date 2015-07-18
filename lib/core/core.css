@@ -834,7 +834,7 @@ Legend and Info Window Support
 #selectedIcon{
     z-index:2000!important;
 }
-.purple, .teal, .blue, .gold,.yellow,.red,.orange,.peach,.ltgreen{
+.purple, .teal, .blue, .gold,.yellow,.red,.orange,.peach,.ltgreen,.green,.forest{
   color:#fff!important;
 }
 .purple{
@@ -863,6 +863,12 @@ Legend and Info Window Support
 }
 .ltgreen{
  background-color:#B0D39B!important;
+}
+.green{
+ background-color:#33B34B!important;
+}
+.forest{
+ background-color:#206937!important;
 }
 /* Dyna marker Set */
 .dyna-mark-icon-purple {
