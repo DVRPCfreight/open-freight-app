@@ -2,7 +2,7 @@
 /*--------------------------------------------------------*/
 /*      Open Freight Application Styles 
 /*      Version 1.0
-/*      Updated: September 3, 2014
+/*      Updated: July 19, 2015
 
 /*--------------------------------------------------------*/
 /*--------  Navigation Bar Styles  -----------------------*/
@@ -479,7 +479,7 @@ input[type=checkbox]:checked + label, input[type=checkbox]:checked + label > div
     border-bottom-width: 0 !important;
 }
 
-.circle-md.legend-icon, .circle-cm.legend-icon {
+.circle-md.legend-icon, .circle-cm.legend-icon, .circle-sm.legend-icon, .crc-md.legend-icon, .crc-sm.legend-icon, .crc-cm.legend-icon {
     left: 16px !important;
     top: 6px !important;
 }
@@ -600,17 +600,17 @@ Version: 1.0
   width: 36px;
   height: 16px;
 }
-.circle-md-shadow {
+.circle-md-shadow, .crc-md-shadow {
   background: url('images/circle-md-shadow.png') no-repeat 0 0;
   width: 34px;
   height: 34px;
 }
-.circle-sm-shadow {
+.circle-sm-shadow, .crc-sm-shadow {
   background: url('images/circle-sm-shadow.png') no-repeat 0 0;
   width: 34px;
   height: 34px;
 }
-.circle-cm-shadow {
+.circle-cm-shadow, .crc-cm-shadow {
   background: url('images/markers-shadow.png') no-repeat 0 0;
   width: 36px;
   height: 16px;
@@ -635,29 +635,25 @@ Version: 1.0
   font-size: 23px;
 }
 
-.circle-md  i {
+.circle-md  i, .crc-md i{
   color: #333;
   margin-top: 5px;
   display: inline-block;
   font-size: 24px;
 
 }
-.circle-sm  i {
+.circle-sm  i, .crc-sm i, .circle-cm  i, .crc-cm i  {
   color: #333;
   margin-top: 4px;
   display: inline-block;
   font-size: 20px;
 
 }
-.circle-cm  i {
-  color: #333;
-  margin-top: 4px;
-  display: inline-block;
-  font-size: 20px;
-
+.crc-cm i{
+  margin-left:-1px;
 }
 
-.circle-md  .icon-white, .circle-sm  .icon-white, .circle-cm .icon-white{
+.circle-md  .icon-white, .circle-sm  .icon-white, .circle-cm .icon-white, .crc-md  .icon-white, .crc-sm  .icon-white, .crc-cm .icon-white{
   color: #fff;
 }
 
@@ -871,36 +867,72 @@ Legend and Info Window Support
  background-color:#206937!important;
 }
 /* Dyna marker Set */
-.dyna-mark-icon-purple {
+.dm-purple, .dm-orange, .dm-blue, .dm-green,.dm-red,.dm-ltred,.dm-pink,.dm-ltblue,.dm-ltgreen,.dm-grey,.dm-black{
+  color:#fff!important;
+}
+.dm-purple{
+  background-color:#D252B9!important;
+}
+.dm-orange{
+  background-color:#F69730!important;
+}
+.dm-blue{
+  background-color:#38A9DC!important;
+}
+.dm-green{
+  background-color:#72B026!important;
+}
+.dm-red{
+  background-color:#D63E2A!important;
+}
+.dm-ltred{
+  background-color:#EB7D7F!important;
+}
+.dm-pink{
+  background-color:#FF91EA!important;
+}
+.dm-ltblue{
+  background-color:#8ADAFF!important;
+}
+.dm-ltgreen{
+  background-color:#BBF970!important;
+}
+.dm-grey{
+  background-color:#575757!important;
+}
+.dm-black{
+  background-color:#303030!important;
+}
+.dyna-mark-icon-dm-purple {
   background-position: -1px 0;
 }
-.dyna-mark-icon-orange {
+.dyna-mark-icon-dm-orange {
   background-position: -35px 0;
 }
-.dyna-mark-icon-blue {
+.dyna-mark-icon-dm-blue {
   background-position: -69px 0;
 }
-.dyna-mark-icon-green {
+.dyna-mark-icon-dm-green {
   background-position: -103px 0;
 }
-.dyna-mark-icon-red {
+.dyna-mark-icon-dm-red {
   background-position: -137px 0;
 }
-.dyna-mark-icon-ltred {
+.dyna-mark-icon-dm-ltred {
   background-position: -171px 0;
 }
-.dyna-mark-icon-pink {
+.dyna-mark-icon-dm-pink {
   background-position: -205px 0;
 }
-.dyna-mark-icon-ltblue {
+.dyna-mark-icon-dm-ltblue {
   background-position: -239px 0;
 }
-.dyna-mark-icon-ltgreen {
+.dyna-mark-icon-dm-ltgreen {
   background-position: -273px 0;
 }
-.dyna-mark-icon-grey {
+.dyna-mark-icon-dm-grey {
   background-position: -307px 0;
 }
-.dyna-mark-icon-black {
+.dyna-mark-icon-dm-black {
   background-position: -341px 0;
 }
