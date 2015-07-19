@@ -256,6 +256,9 @@ input[type=checkbox]:checked + label, input[type=checkbox]:checked + label > div
     font-size: 10pt;
 }
 #iconography {
+    font-size: 22px;
+    color: #fff;
+    padding: 5px;
     float: left;
     height: 100%;
     margin: 1px 10px 3px 3px;
@@ -635,21 +638,37 @@ Version: 1.0
   font-size: 23px;
 }
 
-.circle-md  i, .crc-md i{
-  color: #333;
+/* styles for all other icon sets in map */
+.circle-md  i, .crc-md i{ 
+  margin-top: 7px;
+  display: inline-block;
+  font-size: 18px;
+
+}
+.circle-sm  i, .crc-sm i, .circle-cm  i, .crc-cm i  { 
+  margin-top: 7px;
+  display: inline-block;
+  font-size: 14px;
+
+}
+.crc-cm i{
+  margin-left:-1px;
+}
+
+/* styles for dynico icons on maps */ 
+.circle-md  i.dynico, .crc-md i.dynico{ 
   margin-top: 5px;
   display: inline-block;
   font-size: 24px;
 
 }
-.circle-sm  i, .crc-sm i, .circle-cm  i, .crc-cm i  {
-  color: #333;
+.circle-sm  i.dynico, .crc-sm i.dynico, .circle-cm  i.dynico, .crc-cm i.dynico  { 
   margin-top: 4px;
   display: inline-block;
   font-size: 20px;
 
 }
-.crc-cm i{
+.crc-cm i.dynico{
   margin-left:-1px;
 }
 
@@ -797,8 +816,6 @@ Legend and Info Window Support
 
 #iconography.dynico {
     font-size: 26px;
-    color: #fff;
-    padding: 5px;
 }
 .markerBox.cm{
     width: 38px;
