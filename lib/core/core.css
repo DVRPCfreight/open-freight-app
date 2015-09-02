@@ -187,11 +187,10 @@ input[type=checkbox] {
     margin-top: 8px;
 }
 .checkbox label {
-    padding-left: 38px !important;
     background-size: 28px !important;
-    height: 29px !important;
+    min-height: 29px !important;
     display: block !important;
-    padding-top: 4px !important;
+    padding: 4px 4px 0 38px !important;
 }
 input[type=checkbox] + label, input[type=checkbox] + label > div {
     opacity: 0.4;
